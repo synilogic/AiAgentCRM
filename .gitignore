@@ -1,0 +1,19 @@
+# Node
+node_modules/
+.env
+.env.*
+
+# Build
+build/
+dist/
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+mongo-data/ 
