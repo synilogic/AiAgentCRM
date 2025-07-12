@@ -1,0 +1,323 @@
+[{
+  "_id": {
+    "$oid": "686cb71af6ebd2aca8563d11"
+  },
+  "user": {
+    "$oid": "686cb71af6ebd2aca8563cce"
+  },
+  "title": "Welcome to AI Agent CRM",
+  "message": "Thank you for joining us! Complete your profile setup to get started.",
+  "type": "info",
+  "category": "system",
+  "priority": "medium",
+  "isRead": false,
+  "isSystem": false,
+  "action": {
+    "type": "link",
+    "label": "Complete Profile",
+    "url": "/settings/profile"
+  },
+  "metadata": {
+    "action": "complete_profile",
+    "priority": "medium"
+  },
+  "delivery": {
+    "inApp": true,
+    "email": false,
+    "push": false,
+    "sms": false,
+    "whatsapp": false
+  },
+  "deliveryStatus": {
+    "inApp": {
+      "sent": false
+    },
+    "email": {
+      "sent": false,
+      "delivered": false,
+      "opened": false
+    },
+    "push": {
+      "sent": false,
+      "delivered": false,
+      "clicked": false
+    },
+    "sms": {
+      "sent": false,
+      "delivered": false
+    },
+    "whatsapp": {
+      "sent": false,
+      "delivered": false,
+      "read": false
+    }
+  },
+  "tags": [],
+  "relatedResources": [],
+  "createdAt": {
+    "$date": "2025-07-08T06:13:46.971Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-08T06:13:46.971Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686cb71af6ebd2aca8563d12"
+  },
+  "user": {
+    "$oid": "686cb71af6ebd2aca8563cce"
+  },
+  "title": "New Lead Assigned",
+  "message": "You have been assigned a new high-priority lead: Rajesh Gupta",
+  "type": "success",
+  "category": "leads",
+  "priority": "high",
+  "isRead": true,
+  "isSystem": false,
+  "action": {
+    "type": "none"
+  },
+  "metadata": {
+    "leadId": "lead_id_here",
+    "priority": "high"
+  },
+  "delivery": {
+    "inApp": true,
+    "email": false,
+    "push": false,
+    "sms": false,
+    "whatsapp": false
+  },
+  "deliveryStatus": {
+    "inApp": {
+      "sent": true,
+      "sentAt": {
+        "$date": "2025-07-08T06:13:46.970Z"
+      },
+      "readAt": {
+        "$date": "2025-07-08T06:13:46.970Z"
+      }
+    },
+    "email": {
+      "sent": false,
+      "delivered": false,
+      "opened": false
+    },
+    "push": {
+      "sent": false,
+      "delivered": false,
+      "clicked": false
+    },
+    "sms": {
+      "sent": false,
+      "delivered": false
+    },
+    "whatsapp": {
+      "sent": false,
+      "delivered": false,
+      "read": false
+    }
+  },
+  "tags": [],
+  "relatedResources": [],
+  "createdAt": {
+    "$date": "2025-07-08T06:13:46.972Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-08T06:13:46.972Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686cb71af6ebd2aca8563d13"
+  },
+  "user": {
+    "$oid": "686cb71af6ebd2aca8563cce"
+  },
+  "title": "Task Due Tomorrow",
+  "message": "Task \"Call Rajesh Gupta\" is due tomorrow",
+  "type": "warning",
+  "category": "system",
+  "priority": "high",
+  "isRead": false,
+  "isSystem": false,
+  "action": {
+    "type": "link",
+    "label": "View Task",
+    "url": "/tasks"
+  },
+  "metadata": {
+    "taskId": "task_id_here",
+    "dueDate": {
+      "$date": "2025-07-09T06:13:46.970Z"
+    }
+  },
+  "delivery": {
+    "inApp": true,
+    "email": false,
+    "push": false,
+    "sms": false,
+    "whatsapp": false
+  },
+  "deliveryStatus": {
+    "inApp": {
+      "sent": false
+    },
+    "email": {
+      "sent": false,
+      "delivered": false,
+      "opened": false
+    },
+    "push": {
+      "sent": false,
+      "delivered": false,
+      "clicked": false
+    },
+    "sms": {
+      "sent": false,
+      "delivered": false
+    },
+    "whatsapp": {
+      "sent": false,
+      "delivered": false,
+      "read": false
+    }
+  },
+  "tags": [],
+  "relatedResources": [],
+  "createdAt": {
+    "$date": "2025-07-08T06:13:46.972Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-08T06:13:46.972Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686cb71af6ebd2aca8563d14"
+  },
+  "user": {
+    "$oid": "686cb71af6ebd2aca8563ccf"
+  },
+  "title": "Workflow Execution Complete",
+  "message": "Welcome New Lead workflow has been executed successfully",
+  "type": "success",
+  "category": "system",
+  "priority": "low",
+  "isRead": false,
+  "isSystem": false,
+  "action": {
+    "type": "none"
+  },
+  "metadata": {
+    "workflowId": "workflow_id_here",
+    "executionStatus": "success"
+  },
+  "delivery": {
+    "inApp": true,
+    "email": false,
+    "push": false,
+    "sms": false,
+    "whatsapp": false
+  },
+  "deliveryStatus": {
+    "inApp": {
+      "sent": false
+    },
+    "email": {
+      "sent": false,
+      "delivered": false,
+      "opened": false
+    },
+    "push": {
+      "sent": false,
+      "delivered": false,
+      "clicked": false
+    },
+    "sms": {
+      "sent": false,
+      "delivered": false
+    },
+    "whatsapp": {
+      "sent": false,
+      "delivered": false,
+      "read": false
+    }
+  },
+  "tags": [],
+  "relatedResources": [],
+  "createdAt": {
+    "$date": "2025-07-08T06:13:46.972Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-08T06:13:46.972Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686cb71af6ebd2aca8563d15"
+  },
+  "user": {
+    "$oid": "686cb71af6ebd2aca8563cd0"
+  },
+  "title": "Payment Received",
+  "message": "Payment for Pro plan has been received and activated",
+  "type": "success",
+  "category": "payments",
+  "priority": "medium",
+  "isRead": false,
+  "isSystem": false,
+  "action": {
+    "type": "none"
+  },
+  "metadata": {
+    "planName": "Pro",
+    "amount": 999,
+    "currency": "INR"
+  },
+  "delivery": {
+    "inApp": true,
+    "email": false,
+    "push": false,
+    "sms": false,
+    "whatsapp": false
+  },
+  "deliveryStatus": {
+    "inApp": {
+      "sent": false
+    },
+    "email": {
+      "sent": false,
+      "delivered": false,
+      "opened": false
+    },
+    "push": {
+      "sent": false,
+      "delivered": false,
+      "clicked": false
+    },
+    "sms": {
+      "sent": false,
+      "delivered": false
+    },
+    "whatsapp": {
+      "sent": false,
+      "delivered": false,
+      "read": false
+    }
+  },
+  "tags": [],
+  "relatedResources": [],
+  "createdAt": {
+    "$date": "2025-07-08T06:13:46.973Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-08T06:13:46.973Z"
+  },
+  "__v": 0
+}]

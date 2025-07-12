@@ -1,0 +1,311 @@
+[{
+  "_id": {
+    "$oid": "686cb71af6ebd2aca8563cfd"
+  },
+  "userId": {
+    "$oid": "686cb71af6ebd2aca8563cce"
+  },
+  "name": "Welcome New Lead",
+  "description": "Automated welcome sequence for new leads",
+  "trigger": {
+    "type": "lead_created",
+    "conditions": [],
+    "schedule": {
+      "enabled": false,
+      "daysOfWeek": []
+    }
+  },
+  "actions": [
+    {
+      "type": "send_whatsapp",
+      "order": 1,
+      "delay": 5,
+      "config": {
+        "message": "Welcome! Thank you for your interest. How can we help you today?",
+        "recipients": [],
+        "method": "POST"
+      },
+      "enabled": true,
+      "_id": {
+        "$oid": "686cb71af6ebd2aca8563cfe"
+      },
+      "conditions": []
+    }
+  ],
+  "status": "active",
+  "isActive": true,
+  "executionStats": {
+    "totalExecutions": 0,
+    "successfulExecutions": 0,
+    "failedExecutions": 0,
+    "averageExecutionTime": 0
+  },
+  "limits": {
+    "maxExecutionsPerDay": 1000,
+    "maxExecutionsPerHour": 100,
+    "executionTimeout": 30000
+  },
+  "errorHandling": {
+    "retryOnFailure": true,
+    "maxRetries": 3,
+    "retryDelay": 300000,
+    "stopOnError": false
+  },
+  "version": 1,
+  "tags": [],
+  "category": "onboarding",
+  "previousVersions": [],
+  "createdAt": {
+    "$date": "2025-07-08T06:13:46.933Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-08T06:13:46.933Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686cb71af6ebd2aca8563cff"
+  },
+  "userId": {
+    "$oid": "686cb71af6ebd2aca8563ccf"
+  },
+  "name": "Follow-up Qualified Leads",
+  "description": "Follow up with qualified leads after 24 hours",
+  "trigger": {
+    "type": "lead_status_changed",
+    "conditions": [
+      {
+        "field": "status",
+        "operator": "equals",
+        "value": "qualified",
+        "_id": {
+          "$oid": "686cb71af6ebd2aca8563d00"
+        }
+      }
+    ],
+    "schedule": {
+      "enabled": false,
+      "daysOfWeek": []
+    }
+  },
+  "actions": [
+    {
+      "type": "send_whatsapp",
+      "order": 1,
+      "delay": 1440,
+      "config": {
+        "message": "Hi {{name}}, shall we schedule a call to discuss your requirements?",
+        "recipients": [],
+        "method": "POST"
+      },
+      "enabled": true,
+      "_id": {
+        "$oid": "686cb71af6ebd2aca8563d01"
+      },
+      "conditions": []
+    },
+    {
+      "type": "create_task",
+      "order": 2,
+      "delay": 0,
+      "config": {
+        "taskTitle": "Follow up with {{name}}",
+        "taskDescription": "Schedule a call to discuss requirements",
+        "dueDate": "3 days",
+        "recipients": [],
+        "method": "POST"
+      },
+      "enabled": true,
+      "_id": {
+        "$oid": "686cb71af6ebd2aca8563d02"
+      },
+      "conditions": []
+    }
+  ],
+  "status": "active",
+  "isActive": true,
+  "executionStats": {
+    "totalExecutions": 0,
+    "successfulExecutions": 0,
+    "failedExecutions": 0,
+    "averageExecutionTime": 0
+  },
+  "limits": {
+    "maxExecutionsPerDay": 1000,
+    "maxExecutionsPerHour": 100,
+    "executionTimeout": 30000
+  },
+  "errorHandling": {
+    "retryOnFailure": true,
+    "maxRetries": 3,
+    "retryDelay": 300000,
+    "stopOnError": false
+  },
+  "version": 1,
+  "tags": [],
+  "category": "follow_up",
+  "previousVersions": [],
+  "createdAt": {
+    "$date": "2025-07-08T06:13:46.935Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-08T06:13:46.935Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686cb71af6ebd2aca8563d03"
+  },
+  "userId": {
+    "$oid": "686cb71af6ebd2aca8563cd0"
+  },
+  "name": "Tag High-Value Leads",
+  "description": "Automatically tag leads with high deal values",
+  "trigger": {
+    "type": "lead_created",
+    "conditions": [
+      {
+        "field": "dealValue",
+        "operator": "greater_than",
+        "value": 100000,
+        "_id": {
+          "$oid": "686cb71af6ebd2aca8563d04"
+        }
+      }
+    ],
+    "schedule": {
+      "enabled": false,
+      "daysOfWeek": []
+    }
+  },
+  "actions": [
+    {
+      "type": "add_tag",
+      "order": 1,
+      "delay": 0,
+      "config": {
+        "tag": "high_value",
+        "recipients": [],
+        "method": "POST"
+      },
+      "enabled": true,
+      "_id": {
+        "$oid": "686cb71af6ebd2aca8563d05"
+      },
+      "conditions": []
+    },
+    {
+      "type": "change_status",
+      "order": 2,
+      "delay": 0,
+      "config": {
+        "field": "priority",
+        "value": "high",
+        "recipients": [],
+        "method": "POST"
+      },
+      "enabled": true,
+      "_id": {
+        "$oid": "686cb71af6ebd2aca8563d06"
+      },
+      "conditions": []
+    }
+  ],
+  "status": "active",
+  "isActive": true,
+  "executionStats": {
+    "totalExecutions": 0,
+    "successfulExecutions": 0,
+    "failedExecutions": 0,
+    "averageExecutionTime": 0
+  },
+  "limits": {
+    "maxExecutionsPerDay": 1000,
+    "maxExecutionsPerHour": 100,
+    "executionTimeout": 30000
+  },
+  "errorHandling": {
+    "retryOnFailure": true,
+    "maxRetries": 3,
+    "retryDelay": 300000,
+    "stopOnError": false
+  },
+  "version": 1,
+  "tags": [],
+  "category": "lead_nurturing",
+  "previousVersions": [],
+  "createdAt": {
+    "$date": "2025-07-08T06:13:46.936Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-08T06:13:46.936Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "686cc2e65ef89a024541748c"
+  },
+  "userId": {
+    "$oid": "686cb71af6ebd2aca8563cce"
+  },
+  "name": "CRUD Test Workflow",
+  "description": "Test workflow created by CRUD operations test",
+  "trigger": {
+    "type": "manual",
+    "conditions": [],
+    "schedule": {
+      "enabled": false,
+      "daysOfWeek": []
+    }
+  },
+  "actions": [
+    {
+      "type": "send_whatsapp",
+      "order": 1,
+      "delay": 0,
+      "config": {
+        "message": "Test message from CRUD workflow",
+        "recipients": [],
+        "method": "POST"
+      },
+      "enabled": true,
+      "_id": {
+        "$oid": "686cc2e65ef89a024541748d"
+      },
+      "conditions": []
+    }
+  ],
+  "status": "draft",
+  "isActive": false,
+  "executionStats": {
+    "totalExecutions": 0,
+    "successfulExecutions": 0,
+    "failedExecutions": 0,
+    "averageExecutionTime": 0
+  },
+  "limits": {
+    "maxExecutionsPerDay": 1000,
+    "maxExecutionsPerHour": 100,
+    "executionTimeout": 30000
+  },
+  "errorHandling": {
+    "retryOnFailure": true,
+    "maxRetries": 3,
+    "retryDelay": 300000,
+    "stopOnError": false
+  },
+  "version": 1,
+  "tags": [],
+  "category": "custom",
+  "previousVersions": [],
+  "createdAt": {
+    "$date": "2025-07-08T07:04:06.980Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-08T07:04:06.984Z"
+  },
+  "__v": 0
+}]

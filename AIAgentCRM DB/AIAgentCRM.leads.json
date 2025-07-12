@@ -1,0 +1,295 @@
+[{
+  "_id": {
+    "$oid": "686fa84ece606ccb3aa6be51"
+  },
+  "userId": {
+    "$oid": "686fa84ece606ccb3aa6be4a"
+  },
+  "name": "John Doe",
+  "email": "john@company.com",
+  "phone": "+91-9876543210",
+  "company": "Tech Solutions",
+  "source": "website",
+  "status": "new",
+  "score": 50,
+  "priority": "medium",
+  "scoreFactors": {
+    "engagement": 0,
+    "budget": 0,
+    "authority": 0,
+    "need": 0,
+    "timeline": 0,
+    "fit": 0
+  },
+  "notes": "Interested in enterprise solution",
+  "tags": [
+    "hot-lead",
+    "tech"
+  ],
+  "dealValue": 50000,
+  "currency": "INR",
+  "probability": 70,
+  "whatsappData": {
+    "messageCount": 0
+  },
+  "aiAnalysis": {
+    "keywords": [],
+    "suggestedActions": []
+  },
+  "automationStatus": "none",
+  "analytics": {
+    "views": 0,
+    "interactions": 0,
+    "timeSpent": 0,
+    "touchpoints": [],
+    "conversionPath": []
+  },
+  "lastContact": {
+    "$date": "2025-07-10T11:47:26.608Z"
+  },
+  "followUpHistory": [],
+  "automationHistory": [],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-07-10T11:47:26.614Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-10T11:47:26.614Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "686fa84ece606ccb3aa6be52"
+  },
+  "userId": {
+    "$oid": "686fa84ece606ccb3aa6be4b"
+  },
+  "name": "Jane Smith",
+  "email": "jane@startup.com",
+  "phone": "+91-9876543211",
+  "company": "Startup Inc",
+  "source": "referral",
+  "status": "contacted",
+  "score": 50,
+  "priority": "medium",
+  "scoreFactors": {
+    "engagement": 0,
+    "budget": 0,
+    "authority": 0,
+    "need": 0,
+    "timeline": 0,
+    "fit": 0
+  },
+  "notes": "Looking for affordable pricing",
+  "tags": [
+    "startup",
+    "saas"
+  ],
+  "dealValue": 25000,
+  "currency": "INR",
+  "probability": 50,
+  "whatsappData": {
+    "messageCount": 0
+  },
+  "aiAnalysis": {
+    "keywords": [],
+    "suggestedActions": []
+  },
+  "automationStatus": "none",
+  "analytics": {
+    "views": 0,
+    "interactions": 0,
+    "timeSpent": 0,
+    "touchpoints": [],
+    "conversionPath": []
+  },
+  "lastContact": {
+    "$date": "2025-07-10T11:47:26.609Z"
+  },
+  "followUpHistory": [],
+  "automationHistory": [],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-07-10T11:47:26.614Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-10T11:47:26.614Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "686fa84ece606ccb3aa6be53"
+  },
+  "userId": {
+    "$oid": "686fa84ece606ccb3aa6be4a"
+  },
+  "name": "Mike Johnson",
+  "email": "mike@enterprise.com",
+  "phone": "+91-9876543212",
+  "company": "Enterprise Corp",
+  "source": "social_media",
+  "status": "qualified",
+  "score": 50,
+  "priority": "medium",
+  "scoreFactors": {
+    "engagement": 0,
+    "budget": 0,
+    "authority": 0,
+    "need": 0,
+    "timeline": 0,
+    "fit": 0
+  },
+  "notes": "Decision maker, ready to purchase",
+  "tags": [
+    "enterprise",
+    "priority"
+  ],
+  "dealValue": 100000,
+  "currency": "INR",
+  "probability": 85,
+  "whatsappData": {
+    "messageCount": 0
+  },
+  "aiAnalysis": {
+    "keywords": [],
+    "suggestedActions": []
+  },
+  "automationStatus": "none",
+  "analytics": {
+    "views": 0,
+    "interactions": 0,
+    "timeSpent": 0,
+    "touchpoints": [],
+    "conversionPath": []
+  },
+  "lastContact": {
+    "$date": "2025-07-10T11:47:26.610Z"
+  },
+  "followUpHistory": [],
+  "automationHistory": [],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-07-10T11:47:26.614Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-10T11:47:26.614Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "686fa84ece606ccb3aa6be54"
+  },
+  "userId": {
+    "$oid": "686fa84ece606ccb3aa6be4d"
+  },
+  "name": "Sarah Wilson",
+  "email": "sarah@corporation.com",
+  "phone": "+91-9876543213",
+  "company": "Big Corporation",
+  "source": "cold_call",
+  "status": "proposal_sent",
+  "score": 50,
+  "priority": "medium",
+  "scoreFactors": {
+    "engagement": 0,
+    "budget": 0,
+    "authority": 0,
+    "need": 0,
+    "timeline": 0,
+    "fit": 0
+  },
+  "notes": "Proposal sent for enterprise package",
+  "tags": [
+    "enterprise",
+    "decision-maker"
+  ],
+  "dealValue": 200000,
+  "currency": "INR",
+  "probability": 60,
+  "whatsappData": {
+    "messageCount": 0
+  },
+  "aiAnalysis": {
+    "keywords": [],
+    "suggestedActions": []
+  },
+  "automationStatus": "none",
+  "analytics": {
+    "views": 0,
+    "interactions": 0,
+    "timeSpent": 0,
+    "touchpoints": [],
+    "conversionPath": []
+  },
+  "lastContact": {
+    "$date": "2025-07-10T11:47:26.610Z"
+  },
+  "followUpHistory": [],
+  "automationHistory": [],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-07-10T11:47:26.614Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-10T11:47:26.614Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "686fa84ece606ccb3aa6be55"
+  },
+  "userId": {
+    "$oid": "686fa84ece606ccb3aa6be4c"
+  },
+  "name": "David Brown",
+  "email": "david@smallbiz.com",
+  "phone": "+91-9876543214",
+  "company": "Small Business Co",
+  "source": "google_sheets",
+  "status": "new",
+  "score": 50,
+  "priority": "medium",
+  "scoreFactors": {
+    "engagement": 0,
+    "budget": 0,
+    "authority": 0,
+    "need": 0,
+    "timeline": 0,
+    "fit": 0
+  },
+  "notes": "Small business looking for basic features",
+  "tags": [
+    "small-business",
+    "trial"
+  ],
+  "dealValue": 15000,
+  "currency": "INR",
+  "probability": 30,
+  "whatsappData": {
+    "messageCount": 0
+  },
+  "aiAnalysis": {
+    "keywords": [],
+    "suggestedActions": []
+  },
+  "automationStatus": "none",
+  "analytics": {
+    "views": 0,
+    "interactions": 0,
+    "timeSpent": 0,
+    "touchpoints": [],
+    "conversionPath": []
+  },
+  "lastContact": {
+    "$date": "2025-07-10T11:47:26.610Z"
+  },
+  "followUpHistory": [],
+  "automationHistory": [],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-07-10T11:47:26.614Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-10T11:47:26.614Z"
+  }
+}]

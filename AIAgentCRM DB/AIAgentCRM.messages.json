@@ -1,0 +1,420 @@
+[{
+  "_id": {
+    "$oid": "686cb71af6ebd2aca8563ced"
+  },
+  "user": {
+    "$oid": "686cb71af6ebd2aca8563cce"
+  },
+  "roomId": "room_686cb71af6ebd2aca8563cce_686cb71af6ebd2aca8563cd8",
+  "content": "Hi Rajesh Gupta, thank you for your interest in our AI Agent CRM solution!",
+  "type": "text",
+  "readAt": null,
+  "deliveredAt": null,
+  "edited": {
+    "isEdited": false
+  },
+  "deleted": {
+    "isDeleted": false
+  },
+  "tags": [],
+  "priority": "normal",
+  "status": "sent",
+  "source": "whatsapp",
+  "readBy": [],
+  "deliveredTo": [],
+  "reactions": [],
+  "timestamp": {
+    "$date": "2025-07-08T06:13:46.910Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-07-08T06:13:46.921Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-08T06:13:46.921Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "686cb71af6ebd2aca8563cee"
+  },
+  "user": {
+    "$oid": "686cb71af6ebd2aca8563cce"
+  },
+  "roomId": "room_686cb71af6ebd2aca8563cce_686cb71af6ebd2aca8563cd8",
+  "content": "Hi, I'm interested to know more about your automation features.",
+  "type": "text",
+  "readBy": [
+    {
+      "user": {
+        "$oid": "686cb71af6ebd2aca8563cce"
+      },
+      "readAt": {
+        "$date": "2025-07-08T06:13:46.909Z"
+      },
+      "_id": {
+        "$oid": "686cb71af6ebd2aca8563cef"
+      }
+    }
+  ],
+  "readAt": null,
+  "deliveredAt": null,
+  "edited": {
+    "isEdited": false
+  },
+  "deleted": {
+    "isDeleted": false
+  },
+  "tags": [],
+  "priority": "normal",
+  "status": "delivered",
+  "source": "whatsapp",
+  "deliveredTo": [],
+  "reactions": [],
+  "timestamp": {
+    "$date": "2025-07-08T06:13:46.913Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-07-08T06:13:46.921Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-08T06:13:46.921Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "686cb71af6ebd2aca8563cf0"
+  },
+  "user": {
+    "$oid": "686cb71af6ebd2aca8563ccf"
+  },
+  "roomId": "room_686cb71af6ebd2aca8563ccf_686cb71af6ebd2aca8563cd9",
+  "content": "Hi Anita Desai, thank you for your interest in our AI Agent CRM solution!",
+  "type": "text",
+  "readAt": null,
+  "deliveredAt": null,
+  "edited": {
+    "isEdited": false
+  },
+  "deleted": {
+    "isDeleted": false
+  },
+  "tags": [],
+  "priority": "normal",
+  "status": "sent",
+  "source": "whatsapp",
+  "readBy": [],
+  "deliveredTo": [],
+  "reactions": [],
+  "timestamp": {
+    "$date": "2025-07-08T06:13:46.913Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-07-08T06:13:46.921Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-08T06:13:46.921Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "686cb71af6ebd2aca8563cf1"
+  },
+  "user": {
+    "$oid": "686cb71af6ebd2aca8563ccf"
+  },
+  "roomId": "room_686cb71af6ebd2aca8563ccf_686cb71af6ebd2aca8563cd9",
+  "content": "Hi, I'm interested to know more about your automation features.",
+  "type": "text",
+  "readBy": [
+    {
+      "user": {
+        "$oid": "686cb71af6ebd2aca8563ccf"
+      },
+      "readAt": {
+        "$date": "2025-07-08T06:13:46.909Z"
+      },
+      "_id": {
+        "$oid": "686cb71af6ebd2aca8563cf2"
+      }
+    }
+  ],
+  "readAt": null,
+  "deliveredAt": null,
+  "edited": {
+    "isEdited": false
+  },
+  "deleted": {
+    "isDeleted": false
+  },
+  "tags": [],
+  "priority": "normal",
+  "status": "delivered",
+  "source": "whatsapp",
+  "deliveredTo": [],
+  "reactions": [],
+  "timestamp": {
+    "$date": "2025-07-08T06:13:46.914Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-07-08T06:13:46.922Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-08T06:13:46.922Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "686cb71af6ebd2aca8563cf3"
+  },
+  "user": {
+    "$oid": "686cb71af6ebd2aca8563cd0"
+  },
+  "roomId": "room_686cb71af6ebd2aca8563cd0_686cb71af6ebd2aca8563cda",
+  "content": "Hi Suresh Reddy, thank you for your interest in our AI Agent CRM solution!",
+  "type": "text",
+  "readAt": null,
+  "deliveredAt": null,
+  "edited": {
+    "isEdited": false
+  },
+  "deleted": {
+    "isDeleted": false
+  },
+  "tags": [],
+  "priority": "normal",
+  "status": "sent",
+  "source": "whatsapp",
+  "readBy": [],
+  "deliveredTo": [],
+  "reactions": [],
+  "timestamp": {
+    "$date": "2025-07-08T06:13:46.914Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-07-08T06:13:46.922Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-08T06:13:46.922Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "686cb71af6ebd2aca8563cf4"
+  },
+  "user": {
+    "$oid": "686cb71af6ebd2aca8563cd0"
+  },
+  "roomId": "room_686cb71af6ebd2aca8563cd0_686cb71af6ebd2aca8563cda",
+  "content": "Hi, I'm interested to know more about your automation features.",
+  "type": "text",
+  "readBy": [
+    {
+      "user": {
+        "$oid": "686cb71af6ebd2aca8563cd0"
+      },
+      "readAt": {
+        "$date": "2025-07-08T06:13:46.909Z"
+      },
+      "_id": {
+        "$oid": "686cb71af6ebd2aca8563cf5"
+      }
+    }
+  ],
+  "readAt": null,
+  "deliveredAt": null,
+  "edited": {
+    "isEdited": false
+  },
+  "deleted": {
+    "isDeleted": false
+  },
+  "tags": [],
+  "priority": "normal",
+  "status": "delivered",
+  "source": "whatsapp",
+  "deliveredTo": [],
+  "reactions": [],
+  "timestamp": {
+    "$date": "2025-07-08T06:13:46.915Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-07-08T06:13:46.922Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-08T06:13:46.922Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "686cb71af6ebd2aca8563cf6"
+  },
+  "user": {
+    "$oid": "686cb71af6ebd2aca8563cd1"
+  },
+  "roomId": "room_686cb71af6ebd2aca8563cd1_686cb71af6ebd2aca8563cdb",
+  "content": "Hi Kavita Sharma, thank you for your interest in our AI Agent CRM solution!",
+  "type": "text",
+  "readAt": null,
+  "deliveredAt": null,
+  "edited": {
+    "isEdited": false
+  },
+  "deleted": {
+    "isDeleted": false
+  },
+  "tags": [],
+  "priority": "normal",
+  "status": "sent",
+  "source": "whatsapp",
+  "readBy": [],
+  "deliveredTo": [],
+  "reactions": [],
+  "timestamp": {
+    "$date": "2025-07-08T06:13:46.915Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-07-08T06:13:46.922Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-08T06:13:46.922Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "686cb71af6ebd2aca8563cf7"
+  },
+  "user": {
+    "$oid": "686cb71af6ebd2aca8563cd1"
+  },
+  "roomId": "room_686cb71af6ebd2aca8563cd1_686cb71af6ebd2aca8563cdb",
+  "content": "Hi, I'm interested to know more about your automation features.",
+  "type": "text",
+  "readBy": [
+    {
+      "user": {
+        "$oid": "686cb71af6ebd2aca8563cd1"
+      },
+      "readAt": {
+        "$date": "2025-07-08T06:13:46.909Z"
+      },
+      "_id": {
+        "$oid": "686cb71af6ebd2aca8563cf8"
+      }
+    }
+  ],
+  "readAt": null,
+  "deliveredAt": null,
+  "edited": {
+    "isEdited": false
+  },
+  "deleted": {
+    "isDeleted": false
+  },
+  "tags": [],
+  "priority": "normal",
+  "status": "delivered",
+  "source": "whatsapp",
+  "deliveredTo": [],
+  "reactions": [],
+  "timestamp": {
+    "$date": "2025-07-08T06:13:46.916Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-07-08T06:13:46.922Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-08T06:13:46.922Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "686cb71af6ebd2aca8563cf9"
+  },
+  "user": {
+    "$oid": "686cb71af6ebd2aca8563cd2"
+  },
+  "roomId": "room_686cb71af6ebd2aca8563cd2_686cb71af6ebd2aca8563cdc",
+  "content": "Hi Mohamed Ali, thank you for your interest in our AI Agent CRM solution!",
+  "type": "text",
+  "readAt": null,
+  "deliveredAt": null,
+  "edited": {
+    "isEdited": false
+  },
+  "deleted": {
+    "isDeleted": false
+  },
+  "tags": [],
+  "priority": "normal",
+  "status": "sent",
+  "source": "whatsapp",
+  "readBy": [],
+  "deliveredTo": [],
+  "reactions": [],
+  "timestamp": {
+    "$date": "2025-07-08T06:13:46.917Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-07-08T06:13:46.923Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-08T06:13:46.923Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "686cb71af6ebd2aca8563cfa"
+  },
+  "user": {
+    "$oid": "686cb71af6ebd2aca8563cd2"
+  },
+  "roomId": "room_686cb71af6ebd2aca8563cd2_686cb71af6ebd2aca8563cdc",
+  "content": "Hi, I'm interested to know more about your automation features.",
+  "type": "text",
+  "readBy": [
+    {
+      "user": {
+        "$oid": "686cb71af6ebd2aca8563cd2"
+      },
+      "readAt": {
+        "$date": "2025-07-08T06:13:46.909Z"
+      },
+      "_id": {
+        "$oid": "686cb71af6ebd2aca8563cfb"
+      }
+    }
+  ],
+  "readAt": null,
+  "deliveredAt": null,
+  "edited": {
+    "isEdited": false
+  },
+  "deleted": {
+    "isDeleted": false
+  },
+  "tags": [],
+  "priority": "normal",
+  "status": "delivered",
+  "source": "whatsapp",
+  "deliveredTo": [],
+  "reactions": [],
+  "timestamp": {
+    "$date": "2025-07-08T06:13:46.918Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-07-08T06:13:46.923Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-08T06:13:46.923Z"
+  }
+}]
