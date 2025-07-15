@@ -498,7 +498,7 @@ function App() {
         // Simulate app initialization
         await new Promise(resolve => setTimeout(resolve, 500));
         
-        console.log('🚀 AI Agent CRM User App initialized');
+        console.log('🚀 Ai Agentic CRM User App initialized');
         setIsAppReady(true);
       } catch (error) {
         console.error('❌ App initialization failed:', error);

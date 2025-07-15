@@ -174,7 +174,7 @@ const Login = () => {
                   textShadow: '0 2px 4px rgba(0,0,0,0.3)',
                 }}
               >
-                AI Agent CRM
+                Ai Agentic CRM
               </Typography>
               
               <Typography
@@ -277,7 +277,7 @@ const Login = () => {
                       mb: 3,
                     }}
                   >
-                    Sign in to your AI Agent CRM account
+                    Sign in to your Ai Agentic CRM account
                   </Typography>
                 </Box>
 

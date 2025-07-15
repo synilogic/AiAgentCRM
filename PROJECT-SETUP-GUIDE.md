@@ -1,4 +1,4 @@
-# AI Agent CRM - Project Setup Guide
+# Ai Agentic CRM - Project Setup Guide
 
 ## 🚀 Quick Start
 

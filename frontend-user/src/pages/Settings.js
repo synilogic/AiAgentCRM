@@ -37,7 +37,8 @@ import {
   LinearProgress,
   Accordion,
   AccordionSummary,
-  AccordionDetails
+  AccordionDetails,
+  Skeleton
 } from '@mui/material';
 import {
   PhotoCamera as PhotoCameraIcon,

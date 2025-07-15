@@ -120,7 +120,7 @@ const HelpSupport = () => {
 
   const tutorials = [
     {
-      title: 'Getting Started with AI Agent CRM',
+              title: 'Getting Started with Ai Agentic CRM',
       description: 'Learn the basics of setting up your account and navigating the dashboard.',
       duration: '5 min',
       category: 'Beginner',
@@ -166,7 +166,7 @@ const HelpSupport = () => {
   const guides = [
     {
       title: 'Complete Setup Guide',
-      description: 'Comprehensive guide to get your AI Agent CRM up and running.',
+              description: 'Comprehensive guide to get your Ai Agentic CRM up and running.',
       icon: <SettingsIcon />,
       category: 'Setup',
     },

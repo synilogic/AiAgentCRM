@@ -1,26 +1,17 @@
 {
-  "name": "ai-agent-crm-backend",
+  "name": "ai-agentic-crm-backend",
   "version": "1.0.0",
-  "description": "AI-powered WhatsApp CRM platform backend",
+  "description": "Ai Agentic CRM - AI-powered WhatsApp CRM platform backend",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "start:enhanced": "node start-dev.js",
-    "start:realtime": "node server-enhanced.js",
-    "start:simple": "node server-simple.js",
     "dev": "nodemon server.js",
-    "dev:enhanced": "nodemon start-dev.js",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
+    "production": "NODE_ENV=production node server.js",
+    "build": "echo 'Backend build completed'",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "migrate": "node scripts/migrate.js",
-    "seed": "node scripts/seed.js",
-    "backup": "node scripts/backup.js",
-    "cleanup": "node scripts/cleanup.js",
-    "init-db": "node scripts/initDatabase.js",
-    "reset-db": "node scripts/resetDatabase.js"
+    "init-db": "node scripts/initDatabase.js"
   },
   "keywords": [
     "crm",
@@ -32,7 +23,7 @@
     "business",
     "saas"
   ],
-  "author": "AI Agent CRM Team",
+  "author": "Ai Agentic CRM Team",
   "license": "MIT",
   "dependencies": {
     "archiver": "^6.0.1",

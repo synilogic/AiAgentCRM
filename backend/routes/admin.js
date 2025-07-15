@@ -3290,4 +3290,539 @@ router.post('/api-security/block-ip', [
   }
 });
 
+// ==================== STAFF MANAGEMENT ====================
+
+// GET /api/admin/staff - Get all staff members with filtering
+router.get('/staff', async (req, res) => {
+  try {
+    const { 
+      page = 1, 
+      limit = 10, 
+      search = '', 
+      role = '', 
+      status = '',
+      department = '',
+      sortBy = 'createdAt',
+      sortOrder = 'desc'
+    } = req.query;
+    
+    const filter = { role: { $in: ['admin', 'manager', 'support', 'finance'] } };
+    
+    // Search filter
+    if (search) {
+      filter.$or = [
+        { name: { $regex: search, $options: 'i' } },
+        { email: { $regex: search, $options: 'i' } },
+        { phone: { $regex: search, $options: 'i' } },
+        { 'profile.department': { $regex: search, $options: 'i' } }
+      ];
+    }
+    
+    if (role) filter.role = role;
+    if (status !== '') filter.isActive = status === 'active';
+    if (department) filter['profile.department'] = department;
+
+    const sort = {};
+    sort[sortBy] = sortOrder === 'desc' ? -1 : 1;
+
+    const staff = await User.find(filter)
+      .select('-password -security.twoFactorSecret')
+      .sort(sort)
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec();
+
+    const total = await User.countDocuments(filter);
+
+    // Get audit logs for staff
+    const auditLogs = await Activity.find({
+      type: { $in: ['staff_created', 'staff_updated', 'staff_deleted', 'role_changed'] }
+    })
+      .populate('user', 'name email')
+      .sort({ createdAt: -1 })
+      .limit(50)
+      .exec();
+
+    res.json({
+      success: true,
+      staff,
+      auditLogs,
+      totalPages: Math.ceil(total / limit),
+      currentPage: parseInt(page),
+      total
+    });
+  } catch (error) {
+    console.error('Get staff error:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch staff' });
+  }
+});
+
+// POST /api/admin/staff - Create new staff member
+router.post('/staff', [
+  body('name').notEmpty().trim(),
+  body('email').isEmail().normalizeEmail(),
+  body('role').isIn(['admin', 'manager', 'support', 'finance']),
+  body('department').optional().trim(),
+  body('phone').optional().trim(),
+  body('permissions').isArray().optional()
+], async (req, res) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ success: false, errors: errors.array() });
+    }
+
+    const { name, email, role, department, phone, permissions = [], notes = '' } = req.body;
+
+    // Check if email already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ success: false, message: 'Email already exists' });
+    }
+
+    // Generate temporary password
+    const tempPassword = Math.random().toString(36).slice(-8);
+    const hashedPassword = await bcrypt.hash(tempPassword, 10);
+
+    const staff = new User({
+      name,
+      email,
+      password: hashedPassword,
+      role,
+      isActive: true,
+      phone,
+      profile: {
+        department: department || '',
+        position: role,
+        joiningDate: new Date(),
+        emergencyContact: '',
+        address: '',
+        notes
+      },
+      permissions: permissions || [],
+      isEmailVerified: false,
+      mustChangePassword: true
+    });
+
+    await staff.save();
+
+    // Log activity
+    await Activity.create({
+      user: req.user._id,
+      type: 'staff_created',
+      description: `Created new staff member: ${name} (${role})`,
+      metadata: { staffId: staff._id, role, department }
+    });
+
+    // TODO: Send welcome email with temporary password
+
+    res.json({
+      success: true,
+      message: 'Staff member created successfully',
+      staff: {
+        _id: staff._id,
+        name: staff.name,
+        email: staff.email,
+        role: staff.role,
+        department: staff.profile.department,
+        isActive: staff.isActive,
+        createdAt: staff.createdAt
+      },
+      tempPassword // Only show on creation for admin
+    });
+  } catch (error) {
+    console.error('Create staff error:', error);
+    res.status(500).json({ success: false, message: 'Failed to create staff member' });
+  }
+});
+
+// PUT /api/admin/staff/:id - Update staff member
+router.put('/staff/:id', [
+  body('name').optional().trim(),
+  body('email').optional().isEmail().normalizeEmail(),
+  body('role').optional().isIn(['admin', 'manager', 'support', 'finance']),
+  body('department').optional().trim(),
+  body('isActive').optional().isBoolean(),
+  body('permissions').optional().isArray()
+], async (req, res) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ success: false, errors: errors.array() });
+    }
+
+    const { id } = req.params;
+    const updateData = req.body;
+
+    const staff = await User.findByIdAndUpdate(
+      id,
+      { 
+        ...updateData,
+        'profile.department': updateData.department,
+        updatedAt: new Date()
+      },
+      { new: true, runValidators: true }
+    ).select('-password -security.twoFactorSecret');
+
+    if (!staff) {
+      return res.status(404).json({ success: false, message: 'Staff member not found' });
+    }
+
+    // Log activity
+    await Activity.create({
+      user: req.user._id,
+      type: 'staff_updated',
+      description: `Updated staff member: ${staff.name}`,
+      metadata: { staffId: staff._id, updates: Object.keys(updateData) }
+    });
+
+    res.json({
+      success: true,
+      message: 'Staff member updated successfully',
+      staff
+    });
+  } catch (error) {
+    console.error('Update staff error:', error);
+    res.status(500).json({ success: false, message: 'Failed to update staff member' });
+  }
+});
+
+// DELETE /api/admin/staff/:id - Delete staff member
+router.delete('/staff/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const staff = await User.findById(id);
+    if (!staff) {
+      return res.status(404).json({ success: false, message: 'Staff member not found' });
+    }
+
+    // Soft delete - deactivate instead of removing
+    await User.updateOne({ _id: id }, { 
+      isActive: false,
+      deletedAt: new Date(),
+      deletedBy: req.user._id
+    });
+
+    // Log activity
+    await Activity.create({
+      user: req.user._id,
+      type: 'staff_deleted',
+      description: `Deleted staff member: ${staff.name}`,
+      metadata: { staffId: staff._id, staffRole: staff.role }
+    });
+
+    res.json({
+      success: true,
+      message: 'Staff member deleted successfully'
+    });
+  } catch (error) {
+    console.error('Delete staff error:', error);
+    res.status(500).json({ success: false, message: 'Failed to delete staff member' });
+  }
+});
+
+// ==================== ADDON SYSTEM ====================
+
+// GET /api/admin/addon-modules - Get all addon modules
+router.get('/addon-modules', async (req, res) => {
+  try {
+    // For now, return the core modules with some database state
+    const coreModules = [
+      {
+        id: 'auto-followup',
+        name: 'Auto Follow-up',
+        description: 'Automated follow-up sequences for leads and customers',
+        category: 'Automation',
+        isCore: true,
+        isEnabled: true,
+        globallyEnabled: true,
+        usage: Math.floor(Math.random() * 100),
+        activeUsers: Math.floor(Math.random() * 2000),
+        planAvailability: ['starter', 'professional', 'enterprise'],
+        dependencies: [],
+        version: '2.1.0'
+      },
+      {
+        id: 'ai-bot',
+        name: 'AI Chat Bot',
+        description: 'AI-powered chatbot for customer interactions',
+        category: 'AI',
+        isCore: true,
+        isEnabled: true,
+        globallyEnabled: true,
+        usage: Math.floor(Math.random() * 100),
+        activeUsers: Math.floor(Math.random() * 2000),
+        planAvailability: ['professional', 'enterprise'],
+        dependencies: ['chat-interface'],
+        version: '3.0.1'
+      },
+      {
+        id: 'whatsapp-integration',
+        name: 'WhatsApp Integration',
+        description: 'WhatsApp Business API integration for messaging',
+        category: 'Communication',
+        isCore: true,
+        isEnabled: true,
+        globallyEnabled: true,
+        usage: Math.floor(Math.random() * 100),
+        activeUsers: Math.floor(Math.random() * 2000),
+        planAvailability: ['starter', 'professional', 'enterprise'],
+        dependencies: [],
+        version: '2.3.0'
+      },
+      {
+        id: 'advanced-analytics',
+        name: 'Advanced Analytics',
+        description: 'Detailed analytics and reporting dashboard',
+        category: 'Analytics',
+        isCore: true,
+        isEnabled: true,
+        globallyEnabled: true,
+        usage: Math.floor(Math.random() * 100),
+        activeUsers: Math.floor(Math.random() * 2000),
+        planAvailability: ['professional', 'enterprise'],
+        dependencies: [],
+        version: '2.2.1'
+      }
+    ];
+
+    res.json({
+      success: true,
+      modules: coreModules
+    });
+  } catch (error) {
+    console.error('Get addon modules error:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch addon modules' });
+  }
+});
+
+// PATCH /api/admin/addon-modules/:id - Update addon module
+router.patch('/addon-modules/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { isEnabled, globallyEnabled, planAvailability } = req.body;
+
+    // For now, just return success - in a real implementation,
+    // this would update module configuration in database
+    
+    // Log activity
+    await Activity.create({
+      user: req.user._id,
+      type: 'addon_module_updated',
+      description: `Updated addon module: ${id}`,
+      metadata: { moduleId: id, changes: req.body }
+    });
+
+    res.json({
+      success: true,
+      message: 'Addon module updated successfully'
+    });
+  } catch (error) {
+    console.error('Update addon module error:', error);
+    res.status(500).json({ success: false, message: 'Failed to update addon module' });
+  }
+});
+
+// ==================== SYSTEM SETTINGS ====================
+
+// GET /api/admin/system-settings - Get system settings
+router.get('/system-settings', async (req, res) => {
+  try {
+    // In a real implementation, these would come from a settings collection
+    const settings = {
+      adminProfile: {
+        name: req.user.name || 'Admin User',
+        email: req.user.email || 'admin@aiagentcrm.com',
+        role: req.user.role || 'admin',
+        timezone: 'UTC',
+        language: 'en'
+      },
+      company: {
+        name: 'Ai Agentic CRM',
+        email: 'contact@aiagentcrm.com',
+        phone: '+91 98765 43210',
+        address: 'India',
+        website: 'https://aiagentcrm.com',
+        description: 'Leading AI-powered CRM solution for modern businesses',
+        founded: '2024'
+      },
+      localization: {
+        defaultLanguage: 'en',
+        supportedLanguages: ['en', 'hi', 'es', 'fr'],
+        timezone: 'IST',
+        dateFormat: 'DD/MM/YYYY',
+        currency: 'INR',
+        currencySymbol: '₹'
+      },
+      security: {
+        enableTwoFactor: true,
+        requireStrongPasswords: true,
+        sessionTimeout: 24,
+        maxLoginAttempts: 5,
+        enableAuditLog: true
+      },
+      modules: {
+        whatsapp: { enabled: true, name: 'WhatsApp Integration' },
+        ai: { enabled: true, name: 'AI Assistant' },
+        analytics: { enabled: true, name: 'Analytics' },
+        integrations: { enabled: true, name: 'Third-party Integrations' }
+      }
+    };
+
+    res.json({
+      success: true,
+      settings
+    });
+  } catch (error) {
+    console.error('Get system settings error:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch system settings' });
+  }
+});
+
+// PUT /api/admin/system-settings - Update system settings
+router.put('/system-settings', async (req, res) => {
+  try {
+    const { section, data } = req.body;
+
+    // In a real implementation, this would update the settings in database
+    // For now, just log the activity
+    
+    await Activity.create({
+      user: req.user._id,
+      type: 'system_settings_updated',
+      description: `Updated system settings: ${section}`,
+      metadata: { section, changes: Object.keys(data) }
+    });
+
+    res.json({
+      success: true,
+      message: 'System settings updated successfully'
+    });
+  } catch (error) {
+    console.error('Update system settings error:', error);
+    res.status(500).json({ success: false, message: 'Failed to update system settings' });
+  }
+});
+
+// ==================== SUPPORT MANAGEMENT ====================
+
+// GET /api/admin/support - Get support center data
+router.get('/support', async (req, res) => {
+  try {
+    const supportData = {
+      contacts: [
+        {
+          id: 1,
+          type: 'email',
+          title: 'Email Support',
+          value: 'support@aiagentcrm.com',
+          description: 'Get help via email - We respond within 2 hours',
+          icon: 'email',
+          isActive: true,
+          responseTime: '2 hours'
+        },
+        {
+          id: 2,
+          type: 'chat',
+          title: 'Live Chat',
+          value: 'Available 24/7',
+          description: 'Chat with our support team in real-time',
+          icon: 'chat',
+          isActive: true,
+          responseTime: 'Instant'
+        },
+        {
+          id: 3,
+          type: 'phone',
+          title: 'Phone Support',
+          value: '+91 98765 43210',
+          description: 'Call us for urgent issues',
+          icon: 'phone',
+          isActive: true,
+          responseTime: '5 minutes'
+        },
+        {
+          id: 4,
+          type: 'whatsapp',
+          title: 'WhatsApp Support',
+          value: '+91 98765 43210',
+          description: 'Message us on WhatsApp',
+          icon: 'whatsapp',
+          isActive: true,
+          responseTime: '10 minutes'
+        }
+      ],
+      documentation: [
+        {
+          id: 1,
+          title: 'Getting Started Guide',
+          description: 'Complete guide to setting up your CRM',
+          category: 'Setup',
+          downloads: 245,
+          lastUpdated: new Date(Date.now() - 86400000 * 7),
+          isPopular: true
+        },
+        {
+          id: 2,
+          title: 'WhatsApp Integration Setup',
+          description: 'Step-by-step WhatsApp integration guide',
+          category: 'Integrations',
+          downloads: 189,
+          lastUpdated: new Date(Date.now() - 86400000 * 3),
+          isPopular: true
+        },
+        {
+          id: 3,
+          title: 'API Documentation',
+          description: 'Complete API reference and examples',
+          category: 'Development',
+          downloads: 156,
+          lastUpdated: new Date(Date.now() - 86400000 * 1),
+          isPopular: false
+        }
+      ],
+      faqs: [
+        {
+          id: 1,
+          question: 'How do I connect WhatsApp to my CRM?',
+          answer: 'Go to Integrations > WhatsApp and follow the setup wizard.',
+          category: 'Integrations',
+          helpful: 45,
+          notHelpful: 3,
+          isPopular: true
+        },
+        {
+          id: 2,
+          question: 'Can I customize the AI responses?',
+          answer: 'Yes, go to AI Settings to customize responses and training data.',
+          category: 'AI Features',
+          helpful: 38,
+          notHelpful: 1,
+          isPopular: true
+        }
+      ],
+      systemStatus: {
+        status: 'operational',
+        uptime: '99.9%',
+        lastIncident: new Date(Date.now() - 86400000 * 15),
+        services: [
+          { name: 'API', status: 'operational' },
+          { name: 'WhatsApp Integration', status: 'operational' },
+          { name: 'AI Services', status: 'operational' },
+          { name: 'Database', status: 'operational' }
+        ]
+      }
+    };
+
+    res.json({
+      success: true,
+      data: supportData
+    });
+  } catch (error) {
+    console.error('Get support data error:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch support data' });
+  }
+});
+
 module.exports = router;

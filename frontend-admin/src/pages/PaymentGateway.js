@@ -86,7 +86,7 @@ const PaymentGateway = () => {
       apiKey: '',
       secretKey: '',
       webhookUrl: '',
-      currency: 'USD',
+      currency: 'INR',
       testMode: true,
     },
   });
@@ -118,10 +118,10 @@ const PaymentGateway = () => {
   ];
 
   const currencies = [
+    { value: 'INR', label: 'Indian Rupee (₹)' },
     { value: 'USD', label: 'US Dollar ($)' },
     { value: 'EUR', label: 'Euro (€)' },
     { value: 'GBP', label: 'British Pound (£)' },
-    { value: 'INR', label: 'Indian Rupee (₹)' },
     { value: 'CAD', label: 'Canadian Dollar (C$)' },
   ];
 
@@ -177,7 +177,7 @@ const PaymentGateway = () => {
         apiKey: '',
         secretKey: '',
         webhookUrl: '',
-        currency: 'USD',
+        currency: 'INR',
         testMode: true,
       },
     });
@@ -228,7 +228,7 @@ const PaymentGateway = () => {
         apiKey: '',
         secretKey: '',
         webhookUrl: '',
-        currency: 'USD',
+        currency: 'INR',
         testMode: true,
       },
     });
@@ -453,7 +453,7 @@ const PaymentGateway = () => {
                         </TableCell>
                         <TableCell>
                           <Typography variant="body2" sx={{ fontWeight: 600 }}>
-                            ${invoice.amount}
+                            ₹{invoice.amount}
                           </Typography>
                         </TableCell>
                         <TableCell>
@@ -506,7 +506,7 @@ const PaymentGateway = () => {
                         Total Revenue
                       </Typography>
                       <Typography variant="h4" sx={{ fontWeight: 700, color: 'success.main' }}>
-                        $12,450
+                        ₹12,450
                       </Typography>
                       <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                         +15% from last month
@@ -539,7 +539,7 @@ const PaymentGateway = () => {
                         23
                       </Typography>
                       <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                        $1,250 pending
+                        ₹1,250 pending
                       </Typography>
                     </CardContent>
                   </Card>

@@ -141,7 +141,7 @@ if (process.env.NODE_ENV === 'development') {
 app.get('/', (req, res) => {
   res.json({
     success: true,
-    message: 'AI Agent CRM API Server',
+    message: 'Ai Agentic CRM API Server',
     version: '1.0.0',
     status: 'running',
     timestamp: new Date().toISOString(),

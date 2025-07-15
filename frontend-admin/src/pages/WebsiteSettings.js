@@ -66,45 +66,113 @@ const WebsiteSettings = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [openDialog, setOpenDialog] = useState(false);
   const [websiteData, setWebsiteData] = useState({
-    // General Settings
-    siteName: 'AI Agent CRM',
-    siteDescription: 'Powerful CRM with AI-powered automation',
-    siteUrl: 'https://aiagentcrm.com',
-    logo: '',
-    favicon: '',
-    
-    // Content Management
-    heroTitle: 'Transform Your Business with AI-Powered CRM',
-    heroSubtitle: 'Automate lead management, boost conversions, and grow your business with intelligent automation.',
-    features: [
-      'AI-Powered Lead Scoring',
-      'WhatsApp Integration',
-      'Automated Follow-ups',
-      'Advanced Analytics',
+    general: {
+      siteName: 'Ai Agentic CRM',
+      siteDescription: 'AI-powered customer relationship management platform that streamlines lead management, automates follow-ups, and drives business growth through intelligent automation.',
+      contactEmail: 'support@aiaagentcrm.com',
+      supportPhone: '+1-800-123-4567',
+      businessAddress: '123 Business Street, Suite 100, City, State 12345',
+      businessHours: 'Monday - Friday: 9:00 AM - 6:00 PM',
+      timezone: 'UTC-5 (EST)',
+      language: 'en',
+      currency: 'USD'
+    },
+    seo: {
+      metaTitle: 'Ai Agentic CRM - AI-Powered Customer Relationship Management',
+      metaDescription: 'Transform your business with AI-powered CRM. Automate lead management, streamline customer interactions, and boost conversions with intelligent automation.',
+      metaKeywords: 'AI CRM, lead management, customer relationship management, automation, business growth',
+      ogTitle: 'AI Agent CRM - Intelligent Customer Management',
+      ogDescription: 'Revolutionize your customer relationships with AI-powered automation and intelligent lead management.',
+      ogImage: '/og-image.jpg',
+      twitterCard: 'summary_large_image'
+    },
+    homepage: {
+      heroTitle: 'AI-Powered Customer Relationship Management',
+      heroSubtitle: 'Streamline your business processes and boost conversions with intelligent automation',
+      heroCtaText: 'Start Free Trial',
+      heroCtaLink: '/register',
+      features: [
+        {
+          title: 'AI-Powered Lead Scoring',
+          description: 'Automatically prioritize leads based on conversion probability',
+          icon: 'intelligence'
+        },
+        {
+          title: 'Automated Follow-ups',
+          description: 'Never miss a lead with intelligent follow-up sequences',
+          icon: 'automation'
+        },
+        {
+          title: 'Advanced Analytics',
+          description: 'Get insights that drive better business decisions',
+          icon: 'analytics'
+        }
+      ],
+      content: 'Welcome to Ai Agentic CRM...',
+    },
+    pages: [
+      {
+        id: 1,
+        title: 'Home',
+        slug: 'home',
+        content: 'Welcome to Ai Agentic CRM...',
+        isPublished: true,
+        isHome: true,
+      },
+      {
+        id: 2,
+        title: 'About',
+        slug: 'about',
+        content: 'About our company...',
+        isPublished: true,
+        isHome: false,
+      },
+      {
+        id: 3,
+        title: 'Features',
+        slug: 'features',
+        content: 'Our features...',
+        isPublished: true,
+        isHome: false,
+      },
+      {
+        id: 4,
+        title: 'Pricing',
+        slug: 'pricing',
+        content: 'Pricing plans...',
+        isPublished: true,
+        isHome: false,
+      },
     ],
-    
-    // Design & Branding
-    primaryColor: '#2563eb',
-    secondaryColor: '#10b981',
-    fontFamily: 'Inter',
-    enableDarkMode: false,
-    
-    // SEO & Marketing
-    metaTitle: 'AI Agent CRM - AI-Powered Customer Relationship Management',
-    metaDescription: 'Transform your business with AI-powered CRM automation. Manage leads, automate follow-ups, and boost conversions.',
-    googleAnalytics: '',
-    facebookPixel: '',
-    
-    // User Registration
-    enableRegistration: true,
-    enableLogin: true,
-    requireEmailVerification: true,
-    allowSocialLogin: false,
-    
-    // Security
-    enableCaptcha: true,
-    maxLoginAttempts: 5,
-    sessionTimeout: 24,
+    media: [
+      {
+        id: 1,
+        name: 'hero-image.jpg',
+        url: '/images/hero-image.jpg',
+        type: 'image',
+        size: '2.5 MB',
+        uploadedAt: '2024-01-15',
+      },
+      {
+        id: 2,
+        name: 'logo.png',
+        url: '/images/logo.png',
+        type: 'image',
+        size: '150 KB',
+        uploadedAt: '2024-01-10',
+      },
+    ],
+    userRegistration: {
+      enableRegistration: true,
+      enableLogin: true,
+      requireEmailVerification: true,
+      allowSocialLogin: false,
+    },
+    security: {
+      enableCaptcha: true,
+      maxLoginAttempts: 5,
+      sessionTimeout: 24,
+    },
   });
 
   const [pages, setPages] = useState([
@@ -112,7 +180,7 @@ const WebsiteSettings = () => {
       id: 1,
       title: 'Home',
       slug: 'home',
-      content: 'Welcome to AI Agent CRM...',
+      content: 'Welcome to Ai Agentic CRM...',
       isPublished: true,
       isHome: true,
     },
@@ -265,16 +333,16 @@ const WebsiteSettings = () => {
                     <TextField
                       fullWidth
                       label="Site Name"
-                      value={websiteData.siteName}
-                      onChange={(e) => setWebsiteData({ ...websiteData, siteName: e.target.value })}
+                      value={websiteData.general.siteName}
+                      onChange={(e) => setWebsiteData({ ...websiteData, general: { ...websiteData.general, siteName: e.target.value } })}
                     />
                   </Grid>
                   <Grid item xs={12} md={6}>
                     <TextField
                       fullWidth
                       label="Site URL"
-                      value={websiteData.siteUrl}
-                      onChange={(e) => setWebsiteData({ ...websiteData, siteUrl: e.target.value })}
+                      value={websiteData.general.siteUrl}
+                      onChange={(e) => setWebsiteData({ ...websiteData, general: { ...websiteData.general, siteUrl: e.target.value } })}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -283,8 +351,8 @@ const WebsiteSettings = () => {
                       label="Site Description"
                       multiline
                       rows={3}
-                      value={websiteData.siteDescription}
-                      onChange={(e) => setWebsiteData({ ...websiteData, siteDescription: e.target.value })}
+                      value={websiteData.general.siteDescription}
+                      onChange={(e) => setWebsiteData({ ...websiteData, general: { ...websiteData.general, siteDescription: e.target.value } })}
                     />
                   </Grid>
                   <Grid item xs={12} md={6}>
@@ -335,8 +403,8 @@ const WebsiteSettings = () => {
                     <TextField
                       fullWidth
                       label="Hero Title"
-                      value={websiteData.heroTitle}
-                      onChange={(e) => setWebsiteData({ ...websiteData, heroTitle: e.target.value })}
+                      value={websiteData.homepage.heroTitle}
+                      onChange={(e) => setWebsiteData({ ...websiteData, homepage: { ...websiteData.homepage, heroTitle: e.target.value } })}
                       sx={{ mb: 2 }}
                     />
                     <TextField
@@ -344,8 +412,8 @@ const WebsiteSettings = () => {
                       label="Hero Subtitle"
                       multiline
                       rows={3}
-                      value={websiteData.heroSubtitle}
-                      onChange={(e) => setWebsiteData({ ...websiteData, heroSubtitle: e.target.value })}
+                      value={websiteData.homepage.heroSubtitle}
+                      onChange={(e) => setWebsiteData({ ...websiteData, homepage: { ...websiteData.homepage, heroSubtitle: e.target.value } })}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -353,22 +421,22 @@ const WebsiteSettings = () => {
                       Features
                     </Typography>
                     <List>
-                      {websiteData.features.map((feature, index) => (
+                      {websiteData.homepage.features.map((feature, index) => (
                         <ListItem key={index}>
                           <TextField
                             fullWidth
-                            value={feature}
+                            value={feature.title}
                             onChange={(e) => {
-                              const updatedFeatures = [...websiteData.features];
-                              updatedFeatures[index] = e.target.value;
-                              setWebsiteData({ ...websiteData, features: updatedFeatures });
+                              const updatedFeatures = [...websiteData.homepage.features];
+                              updatedFeatures[index] = { ...updatedFeatures[index], title: e.target.value };
+                              setWebsiteData({ ...websiteData, homepage: { ...websiteData.homepage, features: updatedFeatures } });
                             }}
                           />
                           <IconButton
                             color="error"
                             onClick={() => {
-                              const updatedFeatures = websiteData.features.filter((_, i) => i !== index);
-                              setWebsiteData({ ...websiteData, features: updatedFeatures });
+                              const updatedFeatures = websiteData.homepage.features.filter((_, i) => i !== index);
+                              setWebsiteData({ ...websiteData, homepage: { ...websiteData.homepage, features: updatedFeatures } });
                             }}
                           >
                             <DeleteIcon />
@@ -381,7 +449,10 @@ const WebsiteSettings = () => {
                       onClick={() => {
                         setWebsiteData({
                           ...websiteData,
-                          features: [...websiteData.features, 'New Feature']
+                          homepage: {
+                            ...websiteData.homepage,
+                            features: [...websiteData.homepage.features, { title: 'New Feature', description: '', icon: 'automation' }]
+                          }
                         });
                       }}
                     >
@@ -400,16 +471,16 @@ const WebsiteSettings = () => {
                     <TextField
                       fullWidth
                       label="Primary Color"
-                      value={websiteData.primaryColor}
-                      onChange={(e) => setWebsiteData({ ...websiteData, primaryColor: e.target.value })}
+                      value={websiteData.general.primaryColor}
+                      onChange={(e) => setWebsiteData({ ...websiteData, general: { ...websiteData.general, primaryColor: e.target.value } })}
                       type="color"
                       sx={{ mb: 2 }}
                     />
                     <TextField
                       fullWidth
                       label="Secondary Color"
-                      value={websiteData.secondaryColor}
-                      onChange={(e) => setWebsiteData({ ...websiteData, secondaryColor: e.target.value })}
+                      value={websiteData.general.secondaryColor}
+                      onChange={(e) => setWebsiteData({ ...websiteData, general: { ...websiteData.general, secondaryColor: e.target.value } })}
                       type="color"
                     />
                   </Grid>
@@ -420,8 +491,8 @@ const WebsiteSettings = () => {
                     <FormControl fullWidth sx={{ mb: 2 }}>
                       <InputLabel>Font Family</InputLabel>
                       <Select
-                        value={websiteData.fontFamily}
-                        onChange={(e) => setWebsiteData({ ...websiteData, fontFamily: e.target.value })}
+                        value={websiteData.general.fontFamily}
+                        onChange={(e) => setWebsiteData({ ...websiteData, general: { ...websiteData.general, fontFamily: e.target.value } })}
                         label="Font Family"
                       >
                         <MenuItem value="Inter">Inter</MenuItem>
@@ -433,8 +504,8 @@ const WebsiteSettings = () => {
                     <FormControlLabel
                       control={
                         <Switch
-                          checked={websiteData.enableDarkMode}
-                          onChange={(e) => setWebsiteData({ ...websiteData, enableDarkMode: e.target.checked })}
+                          checked={websiteData.general.enableDarkMode}
+                          onChange={(e) => setWebsiteData({ ...websiteData, general: { ...websiteData.general, enableDarkMode: e.target.checked } })}
                         />
                       }
                       label="Enable Dark Mode"
@@ -449,8 +520,8 @@ const WebsiteSettings = () => {
                     <TextField
                       fullWidth
                       label="Meta Title"
-                      value={websiteData.metaTitle}
-                      onChange={(e) => setWebsiteData({ ...websiteData, metaTitle: e.target.value })}
+                      value={websiteData.seo.metaTitle}
+                      onChange={(e) => setWebsiteData({ ...websiteData, seo: { ...websiteData.seo, metaTitle: e.target.value } })}
                       sx={{ mb: 2 }}
                     />
                     <TextField
@@ -458,23 +529,23 @@ const WebsiteSettings = () => {
                       label="Meta Description"
                       multiline
                       rows={3}
-                      value={websiteData.metaDescription}
-                      onChange={(e) => setWebsiteData({ ...websiteData, metaDescription: e.target.value })}
+                      value={websiteData.seo.metaDescription}
+                      onChange={(e) => setWebsiteData({ ...websiteData, seo: { ...websiteData.seo, metaDescription: e.target.value } })}
                     />
                   </Grid>
                   <Grid item xs={12} md={6}>
                     <TextField
                       fullWidth
                       label="Google Analytics ID"
-                      value={websiteData.googleAnalytics}
-                      onChange={(e) => setWebsiteData({ ...websiteData, googleAnalytics: e.target.value })}
+                      value={websiteData.general.googleAnalytics}
+                      onChange={(e) => setWebsiteData({ ...websiteData, general: { ...websiteData.general, googleAnalytics: e.target.value } })}
                       sx={{ mb: 2 }}
                     />
                     <TextField
                       fullWidth
                       label="Facebook Pixel ID"
-                      value={websiteData.facebookPixel}
-                      onChange={(e) => setWebsiteData({ ...websiteData, facebookPixel: e.target.value })}
+                      value={websiteData.general.facebookPixel}
+                      onChange={(e) => setWebsiteData({ ...websiteData, general: { ...websiteData.general, facebookPixel: e.target.value } })}
                     />
                   </Grid>
                 </Grid>
@@ -580,8 +651,8 @@ const WebsiteSettings = () => {
                     <FormControlLabel
                       control={
                         <Switch
-                          checked={websiteData.enableRegistration}
-                          onChange={(e) => setWebsiteData({ ...websiteData, enableRegistration: e.target.checked })}
+                          checked={websiteData.userRegistration.enableRegistration}
+                          onChange={(e) => setWebsiteData({ ...websiteData, userRegistration: { ...websiteData.userRegistration, enableRegistration: e.target.checked } })}
                         />
                       }
                       label="Enable User Registration"
@@ -590,8 +661,8 @@ const WebsiteSettings = () => {
                     <FormControlLabel
                       control={
                         <Switch
-                          checked={websiteData.enableLogin}
-                          onChange={(e) => setWebsiteData({ ...websiteData, enableLogin: e.target.checked })}
+                          checked={websiteData.userRegistration.enableLogin}
+                          onChange={(e) => setWebsiteData({ ...websiteData, userRegistration: { ...websiteData.userRegistration, enableLogin: e.target.checked } })}
                         />
                       }
                       label="Enable User Login"
@@ -600,8 +671,8 @@ const WebsiteSettings = () => {
                     <FormControlLabel
                       control={
                         <Switch
-                          checked={websiteData.requireEmailVerification}
-                          onChange={(e) => setWebsiteData({ ...websiteData, requireEmailVerification: e.target.checked })}
+                          checked={websiteData.userRegistration.requireEmailVerification}
+                          onChange={(e) => setWebsiteData({ ...websiteData, userRegistration: { ...websiteData.userRegistration, requireEmailVerification: e.target.checked } })}
                         />
                       }
                       label="Require Email Verification"
@@ -610,8 +681,8 @@ const WebsiteSettings = () => {
                     <FormControlLabel
                       control={
                         <Switch
-                          checked={websiteData.allowSocialLogin}
-                          onChange={(e) => setWebsiteData({ ...websiteData, allowSocialLogin: e.target.checked })}
+                          checked={websiteData.userRegistration.allowSocialLogin}
+                          onChange={(e) => setWebsiteData({ ...websiteData, userRegistration: { ...websiteData.userRegistration, allowSocialLogin: e.target.checked } })}
                         />
                       }
                       label="Allow Social Login"
@@ -629,8 +700,8 @@ const WebsiteSettings = () => {
                     <FormControlLabel
                       control={
                         <Switch
-                          checked={websiteData.enableCaptcha}
-                          onChange={(e) => setWebsiteData({ ...websiteData, enableCaptcha: e.target.checked })}
+                          checked={websiteData.security.enableCaptcha}
+                          onChange={(e) => setWebsiteData({ ...websiteData, security: { ...websiteData.security, enableCaptcha: e.target.checked } })}
                         />
                       }
                       label="Enable CAPTCHA"
@@ -640,16 +711,16 @@ const WebsiteSettings = () => {
                       fullWidth
                       type="number"
                       label="Max Login Attempts"
-                      value={websiteData.maxLoginAttempts}
-                      onChange={(e) => setWebsiteData({ ...websiteData, maxLoginAttempts: parseInt(e.target.value) })}
+                      value={websiteData.security.maxLoginAttempts}
+                      onChange={(e) => setWebsiteData({ ...websiteData, security: { ...websiteData.security, maxLoginAttempts: parseInt(e.target.value) } })}
                       sx={{ mb: 2 }}
                     />
                     <TextField
                       fullWidth
                       type="number"
                       label="Session Timeout (hours)"
-                      value={websiteData.sessionTimeout}
-                      onChange={(e) => setWebsiteData({ ...websiteData, sessionTimeout: parseInt(e.target.value) })}
+                      value={websiteData.security.sessionTimeout}
+                      onChange={(e) => setWebsiteData({ ...websiteData, security: { ...websiteData.security, sessionTimeout: parseInt(e.target.value) } })}
                     />
                   </Grid>
                 </Grid>

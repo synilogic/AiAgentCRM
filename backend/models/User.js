@@ -157,8 +157,8 @@ const UserSchema = new mongoose.Schema({
     },
     currency: {
       type: String,
-      default: 'USD',
-      enum: ['USD', 'EUR', 'GBP', 'INR', 'AED']
+      default: 'INR',
+      enum: ['INR', 'USD', 'EUR', 'GBP', 'AED']
     },
     theme: {
       type: String,

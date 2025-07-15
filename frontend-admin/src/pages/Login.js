@@ -21,7 +21,7 @@ import {
 import { useAuth } from '../contexts/AuthContext';
 
 const Login = () => {
-  const [email, setEmail] = useState('admin@aiaagentcrm.com');
+  const [email, setEmail] = useState('admin@aiagentcrm.com');
   const [password, setPassword] = useState('admin123');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
@@ -90,7 +90,7 @@ const Login = () => {
               Admin Login
             </Typography>
             <Typography variant="body1" sx={{ opacity: 0.9 }}>
-              Access the AI Agent CRM admin panel
+              Access the Ai Agentic CRM admin panel
             </Typography>
           </Box>
 

@@ -1,0 +1,82 @@
+{
+  "name": "sample-plugin",
+  "version": "1.0.0",
+  "displayName": "Sample Plugin",
+  "description": "A sample plugin demonstrating the plugin system capabilities",
+  "author": "Ai Agentic CRM Team",
+  "homepage": "https://github.com/aiagentcrm/sample-plugin",
+  "keywords": ["sample", "demo", "example"],
+  "main": "backend/index.js",
+  "frontend": "frontend/index.js",
+  "permissions": [
+    "leads:read",
+    "leads:write",
+    "api:access"
+  ],
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4"
+  },
+  "compatibility": {
+    "coreVersion": ">=1.0.0",
+    "nodeVersion": ">=16.0.0"
+  },
+  "routes": [
+    {
+      "path": "/hello",
+      "method": "GET",
+      "handler": "getHello",
+      "permissions": ["api:access"]
+    },
+    {
+      "path": "/leads/sample",
+      "method": "GET",
+      "handler": "getSampleLeads",
+      "permissions": ["leads:read"]
+    },
+    {
+      "path": "/leads/sample",
+      "method": "POST",
+      "handler": "createSampleLead",
+      "permissions": ["leads:write"]
+    }
+  ],
+  "models": [
+    {
+      "name": "SampleData",
+      "file": "models/SampleData.js"
+    }
+  ],
+  "menu": [
+    {
+      "title": "Sample Plugin",
+      "path": "/plugins/sample",
+      "icon": "puzzle-piece",
+      "permissions": ["api:access"],
+      "order": 100
+    }
+  ],
+  "settings": {
+    "configurable": true,
+    "schema": {
+      "apiKey": {
+        "type": "string",
+        "required": true,
+        "description": "API key for external service integration"
+      },
+      "enableNotifications": {
+        "type": "boolean",
+        "required": false,
+        "description": "Enable notifications for this plugin",
+        "default": true
+      },
+      "maxResults": {
+        "type": "number",
+        "required": false,
+        "description": "Maximum number of results to return",
+        "default": 10
+      }
+    }
+  },
+  "category": "utility"
+} 

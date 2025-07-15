@@ -1,6 +1,6 @@
 @echo off
 echo ========================================
-echo    AI Agent CRM - Project Setup
+echo    Ai Agentic CRM - Project Setup
 echo ========================================
 echo.
 

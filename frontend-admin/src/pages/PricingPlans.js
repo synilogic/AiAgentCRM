@@ -215,7 +215,7 @@ const PricingPlans = () => {
   const formatPrice = (price) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'INR',
     }).format(price);
   };
 
@@ -462,7 +462,7 @@ const PricingPlans = () => {
               <TextField
                 fullWidth
                 type="number"
-                label="Monthly Price ($)"
+                label="Monthly Price (₹)"
                 value={formData.monthlyPrice}
                 onChange={(e) => setFormData({ ...formData, monthlyPrice: parseFloat(e.target.value) || 0 })}
               />
@@ -472,7 +472,7 @@ const PricingPlans = () => {
               <TextField
                 fullWidth
                 type="number"
-                label="Annual Price ($)"
+                label="Annual Price (₹)"
                 value={formData.annualPrice}
                 onChange={(e) => setFormData({ ...formData, annualPrice: parseFloat(e.target.value) || 0 })}
               />

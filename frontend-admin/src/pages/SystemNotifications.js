@@ -429,7 +429,7 @@ const SystemNotifications = () => {
                         Welcome Message
                       </Typography>
                       <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
-                        Welcome to AI Agent CRM! We're excited to help you grow your business.
+                        Welcome to Ai Agentic CRM! We're excited to help you grow your business.
                       </Typography>
                       <Button size="small" variant="outlined">
                         Use Template

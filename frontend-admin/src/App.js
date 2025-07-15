@@ -17,6 +17,11 @@ import PaymentGateway from './pages/PaymentGateway';
 import EmailSettings from './pages/EmailSettings';
 import EmailTemplates from './pages/EmailTemplates';
 
+// New SAAS Admin Pages
+import StaffManagement from './pages/StaffManagement';
+import Support from './pages/Support';
+import AddonSystem from './pages/AddonSystem';
+
 // Enhanced Components
 import AdvancedAnalytics from './components/AdvancedAnalytics';
 import UserCommunication from './components/UserCommunication';
@@ -209,6 +214,11 @@ function AppContent() {
                   <Route path="/security-center" element={<SecurityCenter />} />
                   <Route path="/api-management" element={<ApiManagement />} />
                   
+                  {/* New SAAS Admin Pages */}
+                  <Route path="/staff-management" element={<StaffManagement />} />
+                  <Route path="/support" element={<Support />} />
+                  <Route path="/addon-system" element={<AddonSystem />} />
+
                   {/* Legacy route redirects */}
                   <Route path="/user-management" element={<Navigate to="/admin/users" replace />} />
                   <Route path="/pricing-plans" element={<Navigate to="/admin/plans" replace />} />

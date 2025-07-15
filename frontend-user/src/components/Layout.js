@@ -173,7 +173,7 @@ const Layout = ({ children }) => {
         </Box>
         <Box>
           <Typography variant="h6" sx={{ fontWeight: 700, color: 'primary.main' }}>
-            AI Agent CRM
+                            Ai Agentic CRM
           </Typography>
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
             Powered by AI

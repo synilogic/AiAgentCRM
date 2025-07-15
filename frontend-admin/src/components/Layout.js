@@ -45,7 +45,7 @@ import {
   Storage as StorageIcon,
   BarChart as BarChartIcon,
   Timeline as TimelineIcon,
-  AutoMode as AutoModeIcon,
+  AutoAwesome as AutoModeIcon,
   Memory as MemoryIcon,
   VpnKey as VpnKeyIcon,
   Assignment as AssignmentIcon,
@@ -53,6 +53,9 @@ import {
   Chat as ChatIcon,
   ExpandLess,
   ExpandMore,
+  Group as GroupIcon,
+  ContactSupport as SupportIcon,
+  Extension as ExtensionIcon,
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -86,6 +89,12 @@ const menuItems = [
     text: 'User Management', 
     icon: <PeopleIcon />, 
     path: '/admin/users',
+    category: 'management'
+  },
+  { 
+    text: 'Staff Management', 
+    icon: <GroupIcon />, 
+    path: '/admin/staff-management',
     category: 'management'
   },
   { 
@@ -128,6 +137,12 @@ const menuItems = [
     path: '/admin/api-management',
     category: 'system'
   },
+  { 
+    text: 'Addon System', 
+    icon: <ExtensionIcon />, 
+    path: '/admin/addon-system',
+    category: 'system'
+  },
   
   // Business Configuration
   { 
@@ -157,6 +172,14 @@ const menuItems = [
     category: 'communication'
   },
   
+  // Support & Help
+  { 
+    text: 'Support Center', 
+    icon: <SupportIcon />, 
+    path: '/admin/support',
+    category: 'support'
+  },
+  
   // System Settings
   { 
     text: 'Settings', 
@@ -175,6 +198,7 @@ const menuCategories = {
   system: { title: 'System & Security', items: [] },
   business: { title: 'Business', items: [] },
   communication: { title: 'Communication', items: [] },
+  support: { title: 'Support', items: [] },
   settings: { title: 'Settings', items: [] },
 };
 
@@ -258,7 +282,7 @@ const Layout = ({ children }) => {
         </Box>
         <Box>
           <Typography variant="h6" sx={{ fontWeight: 700, color: 'primary.main' }}>
-            AI Agent CRM
+                            Ai Agentic CRM
           </Typography>
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
             Admin Panel

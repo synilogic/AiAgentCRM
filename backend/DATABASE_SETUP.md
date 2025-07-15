@@ -202,10 +202,11 @@ Automatic cleanup indexes for:
 - **Admin**: admin@aiaagentcrm.com (password: admin123)
 - **Demo**: demo@aiaagentcrm.com (password: demo123)
 
-### Subscription Plans
-- **Starter**: $29/month - Basic features for small businesses
-- **Professional**: $79/month - Advanced features for growing businesses
-- **Enterprise**: $199/month - Complete solution for large organizations
+## Default Plans Created
+
+- **Starter**: ₹2,499/month - Basic features for small businesses
+- **Professional**: ₹6,499/month - Advanced features for growing businesses  
+- **Enterprise**: ₹16,499/month - Complete solution for large organizations
 
 ### Sample Leads
 - 3 sample leads with different statuses and priorities

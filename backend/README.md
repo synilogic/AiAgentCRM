@@ -1,4 +1,4 @@
-# AI Agent CRM - Backend
+# Ai Agentic CRM - Backend
 
 A comprehensive, enterprise-grade AI-powered WhatsApp CRM platform built with Node.js, Express, and MongoDB. This platform provides advanced lead management, AI-powered automation, real-time communication, and extensive third-party integrations.
 
@@ -297,7 +297,7 @@ POST /api/whatsapp/init
 POST /api/whatsapp/send
 {
   "to": "+1234567890",
-  "message": "Hello from AI Agent CRM!"
+  "message": "Hello from Ai Agentic CRM!"
 }
 
 # Get QR code
@@ -479,4 +479,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Built with ❤️ by the AI Agent CRM Team** 
+**Built with ❤️ by the Ai Agentic CRM Team** 

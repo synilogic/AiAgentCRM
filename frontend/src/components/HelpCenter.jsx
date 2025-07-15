@@ -679,7 +679,7 @@ const HelpCenter = () => {
           <VStack align="start" spacing={1}>
             <Heading size="lg">Help Center</Heading>
             <Text color="gray.600">
-              Find answers, tutorials, and get support for AI Agent CRM
+              Find answers, tutorials, and get support for Ai Agentic CRM
             </Text>
           </VStack>
         </Box>

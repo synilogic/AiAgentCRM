@@ -143,7 +143,7 @@ class DatabaseInitializer {
           price: {
             monthly: 29,
             yearly: 290,
-            currency: 'USD'
+            currency: 'INR'
           },
           limits: {
             leads: 100,
@@ -184,7 +184,7 @@ class DatabaseInitializer {
           price: {
             monthly: 79,
             yearly: 790,
-            currency: 'USD'
+            currency: 'INR'
           },
           limits: {
             leads: 1000,
@@ -225,7 +225,7 @@ class DatabaseInitializer {
           price: {
             monthly: 199,
             yearly: 1990,
-            currency: 'USD'
+            currency: 'INR'
           },
           limits: {
             leads: 10000,

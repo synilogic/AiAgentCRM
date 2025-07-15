@@ -259,7 +259,7 @@ class MobileService {
     try {
       const notification = {
         title: 'Payment Update',
-        body: `Payment ${paymentData.status}: $${paymentData.amount}`,
+        body: `Payment ${paymentData.status}: ₹${paymentData.amount}`,
         screen: 'payments',
         data: {
           type: 'payment',

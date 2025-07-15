@@ -1,9 +1,41 @@
 {
+  "name": "ai-agent-crm",
+  "version": "1.0.0",
+  "description": "AI-powered WhatsApp CRM platform - Production Ready",
+  "main": "index.js",
+  "scripts": {
+    "build": "node build-production.js",
+    "test:production": "node production-test.js",
+    "deploy": "deploy-production.bat",
+    "start:production": "start-production.bat",
+    "health-check": "node -e \"require('axios').get('http://localhost:5000/health').then(r=>console.log('✅ Backend healthy')).catch(e=>console.log('❌ Backend down'))\""
+  },
+  "keywords": [
+    "crm",
+    "whatsapp",
+    "ai",
+    "automation",
+    "lead-management",
+    "business",
+    "saas",
+    "production-ready"
+  ],
+  "author": "AI Agent CRM Team",
+  "license": "MIT",
   "dependencies": {
     "axios": "^1.10.0",
     "date-fns": "^4.1.0",
     "faker": "^6.6.6",
     "react-scripts": "^5.0.1",
     "socket.io-client": "^4.8.1"
-  }
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/ai-agent-crm.git"
+  },
+  "homepage": "https://yourdomain.com"
 }

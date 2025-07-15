@@ -100,7 +100,7 @@ const Pricing = () => {
           key: response.data.razorpayKeyId,
           amount: response.data.amount * 100, // Convert to paise
           currency: response.data.currency,
-          name: 'AI Agent CRM',
+          name: 'Ai Agentic CRM',
           description: `${response.data.plan.name} Plan Subscription`,
           order_id: response.data.orderId,
           prefill: {

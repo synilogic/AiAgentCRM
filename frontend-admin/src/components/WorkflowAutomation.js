@@ -41,7 +41,7 @@ import {
   Save,
   Visibility,
   Timeline,
-  AutoMode,
+  AutoAwesome,
   Email,
   Sms,
   WhatsApp,
@@ -314,7 +314,7 @@ const WorkflowAutomation = () => {
     const type = `${nodeType}_${configType}`;
     const allNodes = [...nodeTypes.trigger, ...nodeTypes.action, ...nodeTypes.condition];
     const node = allNodes.find(n => n.id === configType);
-    return node?.icon || <AutoMode />;
+    return node?.icon || <AutoAwesome />;
   };
 
   const renderWorkflowList = () => (
@@ -468,7 +468,7 @@ const WorkflowAutomation = () => {
                   color: 'text.secondary',
                 }}
               >
-                <AutoMode sx={{ fontSize: 60, mb: 2 }} />
+                <AutoAwesome sx={{ fontSize: 60, mb: 2 }} />
                 <Typography variant="h6" gutterBottom>
                   Start Building Your Workflow
                 </Typography>
@@ -698,7 +698,7 @@ const WorkflowAutomation = () => {
     <Box sx={{ p: 3 }}>
       <Tabs value={activeTab} onChange={handleTabChange} sx={{ mb: 3 }}>
         <Tab label="My Workflows" icon={<Timeline />} iconPosition="start" />
-        <Tab label="Workflow Builder" icon={<AutoMode />} iconPosition="start" />
+        <Tab label="Workflow Builder" icon={<AutoAwesome />} iconPosition="start" />
       </Tabs>
 
       {activeTab === 0 && renderWorkflowList()}

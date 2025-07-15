@@ -380,10 +380,10 @@ router.get('/revenue', async (req, res) => {
               $switch: {
                 branches: [
                   { case: { $eq: ['$totalSpent', 0] }, then: 'Free Users' },
-                  { case: { $lt: ['$totalSpent', 100] }, then: '$1-$99' },
-                  { case: { $lt: ['$totalSpent', 500] }, then: '$100-$499' },
-                  { case: { $lt: ['$totalSpent', 1000] }, then: '$500-$999' },
-                  { case: { $gte: ['$totalSpent', 1000] }, then: '$1000+' }
+                  { case: { $lt: ['$totalSpent', 8000] }, then: '₹1-₹7,999' },
+                  { case: { $lt: ['$totalSpent', 40000] }, then: '₹8,000-₹39,999' },
+                  { case: { $lt: ['$totalSpent', 80000] }, then: '₹40,000-₹79,999' },
+                  { case: { $gte: ['$totalSpent', 80000] }, then: '₹80,000+' }
                 ],
                 default: 'Unknown'
               }

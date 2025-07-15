@@ -184,12 +184,12 @@ class AdminApiService {
     } catch (error) {
       console.error('Admin login failed:', error);
       // Fallback authentication for demo
-      if (email === 'admin@aiaagentcrm.com' && password === 'admin123') {
+      if (email === 'admin@aiagentcrm.com' && password === 'admin123') {
         const mockResponse = {
           token: 'admin-mock-token-' + Date.now(),
           user: {
             _id: 'admin-123',
-            email: 'admin@aiaagentcrm.com',
+            email: 'admin@aiagentcrm.com',
             name: 'System Administrator',
             role: 'admin'
           }
@@ -204,12 +204,12 @@ class AdminApiService {
 
   async getCurrentUser() {
     try {
-      return await this.request('/users/me');
+      return await this.request('/admin/profile');
     } catch (error) {
       // Fallback for demo
       return {
         _id: 'admin-123',
-        email: 'admin@aiaagentcrm.com',
+        email: 'admin@aiagentcrm.com',
         name: 'System Administrator',
         role: 'admin'
       };
@@ -225,7 +225,7 @@ class AdminApiService {
         limit: limit.toString(),
         ...filters,
       });
-      return await this.request(`/users?${params}`);
+      return await this.request(`/admin/users?${params}`);
     } catch (error) {
       console.error('Get users failed:', error);
       // Return mock data with real-time simulation
@@ -683,7 +683,7 @@ class AdminApiService {
     } catch (error) {
       return {
         general: {
-          siteName: 'AI Agent CRM',
+          siteName: 'Ai Agentic CRM',
           siteDescription: 'Advanced AI-powered Customer Relationship Management',
           supportEmail: 'support@aiaagentcrm.com',
           adminEmail: 'admin@aiaagentcrm.com',
@@ -1206,7 +1206,7 @@ class AdminApiService {
           key: options.key_id,
           amount: options.amount * 100, // Razorpay expects amount in paise
           currency: options.currency || 'INR',
-          name: 'AI Agent CRM',
+          name: 'Ai Agentic CRM',
           description: options.description || 'Payment for services',
           handler: options.handler,
           prefill: options.prefill,
@@ -1276,7 +1276,7 @@ class AdminApiService {
         password: '',
         encryption: 'tls',
         from_email: '',
-        from_name: 'AI Agent CRM',
+        from_name: 'Ai Agentic CRM',
         reply_to: '',
         test_mode: true
       };
@@ -1627,8 +1627,8 @@ class AdminApiService {
             name: 'payment_success',
             displayName: 'Payment Success Confirmation',
             subject: 'Payment Received - Thank You!',
-            htmlContent: '<h2>Payment Confirmed!</h2><p>Amount: ${{amount}}</p>',
-            textContent: 'Payment Confirmed! Amount: ${{amount}}',
+            htmlContent: '<h2>Payment Confirmed!</h2><p>Amount: ₹{{amount}}</p>',
+            textContent: 'Payment Confirmed! Amount: ₹{{amount}}',
             category: 'billing',
             isActive: true,
             isDefault: true,
@@ -2589,6 +2589,242 @@ class AdminApiService {
 
     throw error;
   }
+
+  // ==================== ADMIN ENDPOINTS ====================
+
+  // Staff Management
+  async getStaff(page = 1, limit = 10, filters = {}) {
+    try {
+      const params = new URLSearchParams({
+        page: page.toString(),
+        limit: limit.toString(),
+        ...filters,
+      });
+      return await this.request(`/admin/staff?${params}`);
+    } catch (error) {
+      this.handleApiError(error, 'Get staff');
+    }
+  }
+
+  async createStaff(staffData) {
+    try {
+      return await this.request('/admin/staff', {
+        method: 'POST',
+        body: JSON.stringify(staffData),
+      });
+    } catch (error) {
+      this.handleApiError(error, 'Create staff');
+    }
+  }
+
+  async updateStaff(staffId, staffData) {
+    try {
+      return await this.request(`/admin/staff/${staffId}`, {
+        method: 'PUT',
+        body: JSON.stringify(staffData),
+      });
+    } catch (error) {
+      this.handleApiError(error, 'Update staff');
+    }
+  }
+
+  async deleteStaff(staffId) {
+    try {
+      return await this.request(`/admin/staff/${staffId}`, {
+        method: 'DELETE',
+      });
+    } catch (error) {
+      this.handleApiError(error, 'Delete staff');
+    }
+  }
+
+  // Addon System
+  async getAddonModules() {
+    try {
+      return await this.request('/admin/addon-modules');
+    } catch (error) {
+      this.handleApiError(error, 'Get addon modules');
+    }
+  }
+
+  async updateAddonModule(moduleId, moduleData) {
+    try {
+      return await this.request(`/admin/addon-modules/${moduleId}`, {
+        method: 'PATCH',
+        body: JSON.stringify(moduleData),
+      });
+    } catch (error) {
+      this.handleApiError(error, 'Update addon module');
+    }
+  }
+
+  // System Settings
+  async getSystemSettings() {
+    try {
+      return await this.request('/admin/system-settings');
+    } catch (error) {
+      this.handleApiError(error, 'Get system settings');
+    }
+  }
+
+  async updateSystemSettings(settings) {
+    try {
+      return await this.request('/admin/system-settings', {
+        method: 'PUT',
+        body: JSON.stringify(settings),
+      });
+    } catch (error) {
+      this.handleApiError(error, 'Update system settings');
+    }
+  }
+
+  // Support Center
+  async getSupportData() {
+    try {
+      return await this.request('/admin/support');
+    } catch (error) {
+      this.handleApiError(error, 'Get support data');
+    }
+  }
+
+  // API Management
+  async getApiKeys() {
+    try {
+      return await this.request('/admin/api-keys');
+    } catch (error) {
+      this.handleApiError(error, 'Get API keys');
+    }
+  }
+
+  async createApiKey(keyData) {
+    try {
+      return await this.request('/admin/api-keys', {
+        method: 'POST',
+        body: JSON.stringify(keyData),
+      });
+    } catch (error) {
+      this.handleApiError(error, 'Create API key');
+    }
+  }
+
+  async getApiAnalytics() {
+    try {
+      return await this.request('/admin/api-analytics');
+    } catch (error) {
+      this.handleApiError(error, 'Get API analytics');
+    }
+  }
+
+  // Advanced Analytics
+  async getAdvancedAnalytics() {
+    try {
+      return await this.request('/admin/analytics/advanced');
+    } catch (error) {
+      this.handleApiError(error, 'Get advanced analytics');
+    }
+  }
+
+  // Dashboard Stats
+  async getDashboardStats() {
+    try {
+      return await this.request('/admin/dashboard-stats');
+    } catch (error) {
+      this.handleApiError(error, 'Get dashboard stats');
+    }
+  }
+
+  // Plans Management
+  async getPlans() {
+    try {
+      return await this.request('/admin/plans');
+    } catch (error) {
+      this.handleApiError(error, 'Get plans');
+    }
+  }
+
+  async createPlan(planData) {
+    try {
+      return await this.request('/admin/plans', {
+        method: 'POST',
+        body: JSON.stringify(planData),
+      });
+    } catch (error) {
+      this.handleApiError(error, 'Create plan');
+    }
+  }
+
+  // Email Templates
+  async getEmailTemplates() {
+    try {
+      return await this.request('/admin/email-templates');
+    } catch (error) {
+      this.handleApiError(error, 'Get email templates');
+    }
+  }
+
+  // Payment Gateways
+  async getPaymentGateways() {
+    try {
+      return await this.request('/admin/payment-gateways');
+    } catch (error) {
+      this.handleApiError(error, 'Get payment gateways');
+    }
+  }
+
+  // ==================== HTTP CONVENIENCE METHODS ====================
+
+  async get(endpoint, options = {}) {
+    const { params, ...otherOptions } = options;
+    let url = endpoint;
+    
+    if (params) {
+      const searchParams = new URLSearchParams();
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== '') {
+          searchParams.append(key, value);
+        }
+      });
+      const queryString = searchParams.toString();
+      if (queryString) {
+        url += (endpoint.includes('?') ? '&' : '?') + queryString;
+      }
+    }
+    
+    return this.request(url, { method: 'GET', ...otherOptions });
+  }
+
+  async post(endpoint, data, options = {}) {
+    return this.request(endpoint, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      ...options
+    });
+  }
+
+  async put(endpoint, data, options = {}) {
+    return this.request(endpoint, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      ...options
+    });
+  }
+
+  async patch(endpoint, data, options = {}) {
+    return this.request(endpoint, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+      ...options
+    });
+  }
+
+  async delete(endpoint, options = {}) {
+    return this.request(endpoint, {
+      method: 'DELETE',
+      ...options
+    });
+  }
+
+  // ==================== TOKEN MANAGEMENT ====================
 }
 
 export default new AdminApiService(); 

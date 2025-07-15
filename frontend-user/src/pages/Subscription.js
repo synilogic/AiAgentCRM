@@ -191,7 +191,7 @@ const Subscription = () => {
         key: razorpayKeyId,
         amount: order.amount,
         currency: order.currency,
-        name: 'AI Agent CRM',
+        name: 'Ai Agentic CRM',
         description: `Subscription to ${plan.name} - ${billingCycle}`,
         order_id: order.id,
         receipt: order.receipt,

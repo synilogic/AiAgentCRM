@@ -1,4 +1,4 @@
-# 🔑 AI Agent CRM - Login Credentials
+# 🔑 Ai Agentic CRM - Login Credentials
 
 ## 📋 Available User Accounts
 

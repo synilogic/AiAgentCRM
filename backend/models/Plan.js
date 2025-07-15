@@ -34,7 +34,7 @@ const PlanSchema = new mongoose.Schema({
     currency: {
       type: String,
       default: 'INR',
-      enum: ['USD', 'EUR', 'GBP', 'INR', 'AED']
+      enum: ['INR', 'USD', 'EUR', 'GBP', 'AED']
     }
   },
   

@@ -236,7 +236,7 @@ const MobileApp = () => {
     try {
       const response = await apiService.post('/mobile/test-push', {
         deviceId,
-        message: 'This is a test notification from AI Agent CRM'
+        message: 'This is a test notification from Ai Agentic CRM'
       });
       
       if (response.success) {

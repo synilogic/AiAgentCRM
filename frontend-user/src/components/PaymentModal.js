@@ -214,7 +214,7 @@ const PaymentModal = ({ open, onClose, planData, onSuccess, onError }) => {
         key: 'rzp_test_xxxxxxxx', // Replace with actual key
         amount: amount * 100, // Convert to paise
         currency: 'INR',
-        name: 'AI Agent CRM',
+        name: 'Ai Agentic CRM',
         description: `Payment for ${planData.name} plan`,
         order_id: orderData.order_id,
         prefill: {

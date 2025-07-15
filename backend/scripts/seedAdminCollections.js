@@ -39,8 +39,8 @@ async function seedAdminCollections() {
           name: 'payment_success',
           displayName: 'Payment Success Confirmation',
           subject: 'Payment Received - Thank You!',
-          htmlContent: '<h2>Payment Confirmed!</h2><p>Amount: ${{amount}}</p><p>Transaction: {{transaction_id}}</p><p>Date: {{payment_date}}</p>',
-          textContent: 'Payment Confirmed! Amount: ${{amount}}, Transaction: {{transaction_id}}, Date: {{payment_date}}',
+          htmlContent: '<h2>Payment Confirmed!</h2><p>Amount: ₹{{amount}}</p><p>Transaction: {{transaction_id}}</p><p>Date: {{payment_date}}</p>',
+          textContent: 'Payment Confirmed! Amount: ₹{{amount}}, Transaction: {{transaction_id}}, Date: {{payment_date}}',
           variables: [
             { name: 'amount', description: 'Payment amount', required: true },
             { name: 'transaction_id', description: 'Transaction ID', required: true },

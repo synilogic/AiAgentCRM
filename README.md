@@ -1,4 +1,4 @@
-# WhatsApp CRM Platform with AI Integration
+# Ai Agentic CRM Platform with AI Integration
 
 A comprehensive SaaS platform that combines WhatsApp Business integration with AI-powered lead management, automated follow-ups, and advanced analytics. Built with Node.js, React, and MongoDB.
 

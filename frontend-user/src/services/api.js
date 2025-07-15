@@ -899,8 +899,8 @@ class UserApiService {
     return new Date(date).toLocaleString();
   }
 
-  formatCurrency(amount, currency = 'USD') {
-    return new Intl.NumberFormat('en-US', {
+  formatCurrency(amount, currency = 'INR') {
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
       currency,
     }).format(amount);

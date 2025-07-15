@@ -83,13 +83,13 @@ export const AuthProvider = ({ children }) => {
         try {
           console.log('Checking admin auth with token:', token.substring(0, 10) + '...');
           
-          // Try backend first
+          // Try admin endpoint first
           try {
-            const response = await apiRequest('/api/users/me');
-            console.log('Auth check response:', response);
+            const response = await apiRequest('/api/admin/profile');
+            console.log('Admin auth check response:', response);
             
-            if (response && (response.role === 'admin' || response.email === 'admin@aiaagentcrm.com')) {
-              setUser(response);
+            if (response && response.user && response.user.role === 'admin') {
+              setUser(response.user);
               setLoading(false);
               return;
             } else {
@@ -97,7 +97,7 @@ export const AuthProvider = ({ children }) => {
               throw new Error('Not an admin user');
             }
           } catch (backendError) {
-            console.warn('Backend auth check failed, using fallback');
+            console.warn('Admin auth check failed, using fallback');
             
             // Fallback: Use stored user data if backend is not available
             const storedUser = localStorage.getItem('admin_user');

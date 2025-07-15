@@ -152,7 +152,7 @@ function App() {
     return (
       <div className="App">
         <div className="header">
-          <h1>AI Agent CRM</h1>
+          <h1>Ai Agentic CRM</h1>
           <p>Intelligent Customer Relationship Management</p>
         </div>
         
@@ -201,7 +201,7 @@ function App() {
         // Admin dashboard (keep existing simple dashboard for admin)
         <>
           <div className="header">
-            <h1>AI Agent CRM Dashboard</h1>
+            <h1>Ai Agentic CRM Dashboard</h1>
             <p>Welcome, {user?.email} ({user?.role})</p>
             <button onClick={handleLogout} className="btn" style={{ width: 'auto', marginTop: '10px' }}>
               Logout

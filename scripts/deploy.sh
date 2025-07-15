@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# AI Agent CRM Deployment Script
+# Ai Agentic CRM Deployment Script
 # This script handles production deployment with zero-downtime
 
 set -e

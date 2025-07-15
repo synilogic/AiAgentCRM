@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# AI Agent CRM Backup Script
+# Ai Agentic CRM Backup Script
 # This script handles database and application data backups
 
 set -e

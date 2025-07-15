@@ -1,6 +1,6 @@
 #!/usr/bin/env pwsh
 
-Write-Host "Starting AI Agent CRM Applications..." -ForegroundColor Green
+Write-Host "Starting Ai Agentic CRM Applications..." -ForegroundColor Green
 
 # Start Backend Server
 Write-Host "Starting Backend Server (Port 5000)..." -ForegroundColor Yellow

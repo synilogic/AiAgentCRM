@@ -85,7 +85,7 @@ const EmailSettings = () => {
       username: '',
       password: '',
       fromEmail: 'noreply@aiagentcrm.com',
-      fromName: 'AI Agent CRM',
+      fromName: 'Ai Agentic CRM',
       enableSSL: true,
       enableTLS: true,
     },
@@ -95,13 +95,13 @@ const EmailSettings = () => {
       {
         id: 1,
         name: 'Welcome Email',
-        subject: 'Welcome to AI Agent CRM!',
+        subject: 'Welcome to Ai Agentic CRM!',
         type: 'welcome',
         isActive: true,
         content: `
-          <h2>Welcome to AI Agent CRM!</h2>
-          <p>Dear {{user.name}},</p>
-          <p>Thank you for joining AI Agent CRM. We're excited to help you transform your business with AI-powered automation.</p>
+          <h2>Welcome to Ai Agentic CRM!</h2>
+          <p>Hi {{username}},</p>
+          <p>Thank you for joining Ai Agentic CRM. We're excited to help you transform your business with AI-powered automation.</p>
           <p>Here's what you can do to get started:</p>
           <ul>
             <li>Connect your WhatsApp account</li>
@@ -110,7 +110,7 @@ const EmailSettings = () => {
             <li>Explore our AI features</li>
           </ul>
           <p>If you have any questions, feel free to reach out to our support team.</p>
-          <p>Best regards,<br>The AI Agent CRM Team</p>
+          <p>Best regards,<br>The Ai Agentic CRM Team</p>
         `,
       },
       {
@@ -126,7 +126,7 @@ const EmailSettings = () => {
           <p><a href="{{resetLink}}" style="background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px;">Reset Password</a></p>
           <p>If you didn't request this, you can safely ignore this email.</p>
           <p>This link will expire in 24 hours.</p>
-          <p>Best regards,<br>The AI Agent CRM Team</p>
+          <p>Best regards,<br>The Ai Agentic CRM Team</p>
         `,
       },
       {
@@ -147,7 +147,7 @@ const EmailSettings = () => {
             <li>Custom integrations</li>
           </ul>
           <p><a href="{{upgradeLink}}" style="background-color: #10b981; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px;">Upgrade Now</a></p>
-          <p>Best regards,<br>The AI Agent CRM Team</p>
+          <p>Best regards,<br>The Ai Agentic CRM Team</p>
         `,
       },
       {
@@ -162,12 +162,12 @@ const EmailSettings = () => {
           <p>Your free trial will expire in {{daysLeft}} days. Don't lose access to your data and automation!</p>
           <p>Choose a plan that fits your needs:</p>
           <ul>
-            <li>Starter: $29/month</li>
-            <li>Professional: $79/month</li>
-            <li>Enterprise: $199/month</li>
+            <li>Starter: ₹2,499/month</li>
+            <li>Professional: ₹6,499/month</li>
+            <li>Enterprise: ₹16,499/month</li>
           </ul>
           <p><a href="{{billingLink}}" style="background-color: #f59e0b; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px;">Choose Plan</a></p>
-          <p>Best regards,<br>The AI Agent CRM Team</p>
+          <p>Best regards,<br>The Ai Agentic CRM Team</p>
         `,
       },
     ],
@@ -177,7 +177,7 @@ const EmailSettings = () => {
       enableEmailNotifications: true,
       enableMarketingEmails: false,
       enableSystemEmails: true,
-      emailFooter: '© 2024 AI Agent CRM. All rights reserved.',
+      emailFooter: '© 2024 Ai Agentic CRM. All rights reserved.',
       replyToEmail: 'support@aiagentcrm.com',
       maxEmailsPerHour: 100,
       enableEmailTracking: true,
@@ -239,7 +239,7 @@ const EmailSettings = () => {
     try {
       await api.post('/admin/email-settings/test', {
         to: user.email,
-        subject: 'Test Email from AI Agent CRM',
+        subject: 'Test Email from Ai Agentic CRM',
         content: 'This is a test email to verify your SMTP configuration.',
       });
       success('Test email sent successfully');

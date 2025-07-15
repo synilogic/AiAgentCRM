@@ -391,10 +391,10 @@ const Dashboard = () => {
   };
 
   const formatCurrency = (amount) => {
-    if (!amount) return '$0';
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
+    if (!amount) return '₹0';
+    return new Intl.NumberFormat('en-IN', { 
+      style: 'currency', 
+      currency: 'INR' 
     }).format(amount);
   };
 

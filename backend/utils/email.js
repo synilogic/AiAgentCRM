@@ -18,7 +18,7 @@ class EmailService {
       password: process.env.SMTP_PASSWORD || '',
       encryption: process.env.SMTP_ENCRYPTION || 'tls',
       from_email: process.env.SMTP_FROM_EMAIL || '',
-      from_name: process.env.SMTP_FROM_NAME || 'AI Agent CRM',
+      from_name: process.env.SMTP_FROM_NAME || 'Ai Agentic CRM',
       reply_to: process.env.SMTP_REPLY_TO || '',
       test_mode: process.env.SMTP_TEST_MODE === 'true'
     };
@@ -128,13 +128,13 @@ class EmailService {
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Welcome to AI Agent CRM</title>
+    <title>Welcome to Ai Agentic CRM</title>
 </head>
 <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
     <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-        <h1 style="color: #2563eb;">Welcome to AI Agent CRM!</h1>
+        <h1 style="color: #2563eb;">Welcome to Ai Agentic CRM!</h1>
         <p>Hi {{name}},</p>
-        <p>Thank you for joining AI Agent CRM. We're excited to help you manage your leads and grow your business with AI-powered automation.</p>
+        <p>Thank you for joining Ai Agentic CRM. We're excited to help you manage your leads and grow your business with AI-powered automation.</p>
         
         <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <h3>Getting Started:</h3>
@@ -148,7 +148,7 @@ class EmailService {
         
         <p>If you have any questions, feel free to reach out to our support team.</p>
         
-        <p>Best regards,<br>The AI Agent CRM Team</p>
+        <p>Best regards,<br>The Ai Agentic CRM Team</p>
     </div>
 </body>
 </html>`,
@@ -158,13 +158,13 @@ class EmailService {
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Password Reset - AI Agent CRM</title>
+    <title>Password Reset - Ai Agentic CRM</title>
 </head>
 <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
     <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
         <h1 style="color: #dc2626;">Password Reset Request</h1>
         <p>Hi {{name}},</p>
-        <p>We received a request to reset your password for your AI Agent CRM account.</p>
+        <p>We received a request to reset your password for your Ai Agentic CRM account.</p>
         
         <div style="text-align: center; margin: 30px 0;">
             <a href="{{resetUrl}}" style="background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">Reset Password</a>
@@ -173,7 +173,7 @@ class EmailService {
         <p>If you didn't request this password reset, please ignore this email.</p>
         <p>This link will expire in 1 hour for security reasons.</p>
         
-        <p>Best regards,<br>The AI Agent CRM Team</p>
+        <p>Best regards,<br>The Ai Agentic CRM Team</p>
     </div>
 </body>
 </html>`,
@@ -183,13 +183,13 @@ class EmailService {
 <html>
 <head>
     <meta charset="utf-8">
-    <title>New Lead - AI Agent CRM</title>
+    <title>New Lead - Ai Agentic CRM</title>
 </head>
 <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
     <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
         <h1 style="color: #059669;">New Lead Alert!</h1>
         <p>Hi {{name}},</p>
-        <p>You have a new lead in your AI Agent CRM dashboard.</p>
+        <p>You have a new lead in your Ai Agentic CRM dashboard.</p>
         
         <div style="background-color: #f0fdf4; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #059669;">
             <h3>Lead Details:</h3>
@@ -204,7 +204,7 @@ class EmailService {
             <a href="{{dashboardUrl}}" style="background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">View Lead</a>
         </div>
         
-        <p>Best regards,<br>The AI Agent CRM Team</p>
+        <p>Best regards,<br>The Ai Agentic CRM Team</p>
     </div>
 </body>
 </html>`,
@@ -214,13 +214,13 @@ class EmailService {
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Subscription Update - AI Agent CRM</title>
+    <title>Subscription Update - Ai Agentic CRM</title>
 </head>
 <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
     <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
         <h1 style="color: #2563eb;">Subscription Update</h1>
         <p>Hi {{name}},</p>
-        <p>Your AI Agent CRM subscription has been updated.</p>
+        <p>Your Ai Agentic CRM subscription has been updated.</p>
         
         <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <h3>Subscription Details:</h3>
@@ -232,7 +232,7 @@ class EmailService {
         
         <p>If you have any questions about your subscription, please contact our support team.</p>
         
-        <p>Best regards,<br>The AI Agent CRM Team</p>
+        <p>Best regards,<br>The Ai Agentic CRM Team</p>
     </div>
 </body>
 </html>`,
@@ -242,7 +242,7 @@ class EmailService {
 <html>
 <head>
     <meta charset="utf-8">
-    <title>{{title}} - AI Agent CRM</title>
+    <title>{{title}} - Ai Agentic CRM</title>
 </head>
 <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
     <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
@@ -251,7 +251,7 @@ class EmailService {
         <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
             {{{message}}}
         </div>
-        <p>Best regards,<br>The AI Agent CRM Team</p>
+        <p>Best regards,<br>The Ai Agentic CRM Team</p>
     </div>
 </body>
 </html>`
@@ -332,7 +332,7 @@ class EmailService {
 
     return this.sendEmailWithTemplate(
       email,
-      'Welcome to AI Agent CRM!',
+      'Welcome to Ai Agentic CRM!',
       'welcome',
       data
     );
@@ -350,7 +350,7 @@ class EmailService {
 
     return this.sendEmailWithTemplate(
       email,
-      'Password Reset Request - AI Agent CRM',
+      'Password Reset Request - Ai Agentic CRM',
       'password-reset',
       data
     );
@@ -370,7 +370,7 @@ class EmailService {
 
     return this.sendEmailWithTemplate(
       email,
-      'New Lead Alert - AI Agent CRM',
+      'New Lead Alert - Ai Agentic CRM',
       'lead-notification',
       data
     );
@@ -389,7 +389,7 @@ class EmailService {
 
     return this.sendEmailWithTemplate(
       email,
-      'Subscription Update - AI Agent CRM',
+      'Subscription Update - Ai Agentic CRM',
       'subscription-update',
       data
     );
@@ -405,7 +405,7 @@ class EmailService {
 
     return this.sendEmailWithTemplate(
       email,
-      `${title} - AI Agent CRM`,
+      `${title} - Ai Agentic CRM`,
       'system-notification',
       data
     );
@@ -508,8 +508,8 @@ class EmailService {
     try {
       const result = await this.sendEmail(
         to,
-        'Test Email - AI Agent CRM',
-        '<h1>Test Email</h1><p>This is a test email from AI Agent CRM.</p>'
+        'Test Email - Ai Agentic CRM',
+        '<h1>Test Email</h1><p>This is a test email from Ai Agentic CRM.</p>'
       );
 
       return result;
@@ -614,7 +614,7 @@ class EmailService {
       {
         id: 'user_registration',
         name: 'User Registration Welcome',
-        subject: 'Welcome to AI Agent CRM - {{user_name}}!',
+        subject: 'Welcome to Ai Agentic CRM - {{user_name}}!',
         category: 'Authentication',
         variables: ['user_name', 'email', 'activation_link'],
         html_content: `
@@ -622,7 +622,7 @@ class EmailService {
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Welcome to AI Agent CRM</title>
+    <title>Welcome to Ai Agentic CRM</title>
     <style>
         body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
@@ -635,12 +635,12 @@ class EmailService {
 <body>
     <div class="container">
         <div class="header">
-            <h1 style="color: #2196F3;">Welcome to AI Agent CRM!</h1>
+            <h1 style="color: #2196F3;">Welcome to Ai Agentic CRM!</h1>
         </div>
         
         <div class="content">
             <h2>Hello {{user_name}}!</h2>
-            <p>Thank you for joining AI Agent CRM. We're excited to have you on board!</p>
+            <p>Thank you for joining Ai Agentic CRM. We're excited to have you on board!</p>
             <p>Your account has been created with the email: <strong>{{email}}</strong></p>
             
             <div style="text-align: center; margin: 30px 0;">
@@ -651,17 +651,17 @@ class EmailService {
         </div>
         
         <div class="footer">
-            <p>&copy; 2025 AI Agent CRM. All rights reserved.</p>
+            <p>&copy; 2025 Ai Agentic CRM. All rights reserved.</p>
         </div>
     </div>
 </body>
 </html>`,
-        text_content: `Hello {{user_name}}!\n\nThank you for joining AI Agent CRM. Please activate your account by clicking: {{activation_link}}\n\nBest regards,\nAI Agent CRM Team`
+        text_content: `Hello {{user_name}}!\n\nThank you for joining Ai Agentic CRM. Please activate your account by clicking: {{activation_link}}\n\nBest regards,\nAI Agent CRM Team`
       },
       {
         id: 'trial_expire',
         name: 'Trial Expiration Notice',
-        subject: 'Your AI Agent CRM trial expires in {{days_left}} days',
+        subject: 'Your Ai Agentic CRM trial expires in {{days_left}} days',
         category: 'Subscription',
         variables: ['user_name', 'days_left', 'upgrade_link'],
         html_content: `
@@ -685,7 +685,7 @@ class EmailService {
         <div class="warning">
             <h2>Hi {{user_name}},</h2>
             <p>Your free trial will expire in <strong>{{days_left}} days</strong>.</p>
-            <p>Don't lose access to all the amazing features of AI Agent CRM!</p>
+            <p>Don't lose access to all the amazing features of Ai Agentic CRM!</p>
             
             <div style="text-align: center; margin: 30px 0;">
                 <a href="{{upgrade_link}}" class="button">Upgrade Now</a>
@@ -797,7 +797,7 @@ class EmailService {
       {
         id: 'password_reset',
         name: 'Password Reset Request',
-        subject: 'Reset Your AI Agent CRM Password',
+        subject: 'Reset Your Ai Agentic CRM Password',
         category: 'Authentication',
         variables: ['user_name', 'reset_link', 'expiry_time'],
         html_content: `
@@ -820,7 +820,7 @@ class EmailService {
         
         <div class="reset">
             <h2>Hi {{user_name}},</h2>
-            <p>We received a request to reset your password for your AI Agent CRM account.</p>
+            <p>We received a request to reset your password for your Ai Agentic CRM account.</p>
             
             <div style="text-align: center; margin: 30px 0;">
                 <a href="{{reset_link}}" class="button">Reset Password</a>
@@ -909,11 +909,11 @@ class EmailService {
     });
   }
 
-  async sendTestEmail(to, subject = 'Test Email from AI Agent CRM') {
+  async sendTestEmail(to, subject = 'Test Email from Ai Agentic CRM') {
     const html = `
       <div style="font-family: Arial, sans-serif; padding: 20px;">
         <h2 style="color: #2196F3;">Test Email Successful!</h2>
-        <p>This is a test email from AI Agent CRM.</p>
+        <p>This is a test email from Ai Agentic CRM.</p>
         <p><strong>Sent at:</strong> ${new Date().toLocaleString()}</p>
         <p>If you received this email, your SMTP configuration is working correctly.</p>
       </div>
@@ -923,7 +923,7 @@ class EmailService {
       to,
       subject,
       html,
-      text: 'Test email from AI Agent CRM - SMTP configuration is working!'
+      text: 'Test email from Ai Agentic CRM - SMTP configuration is working!'
     });
   }
 }

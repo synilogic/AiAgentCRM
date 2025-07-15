@@ -88,7 +88,7 @@ const SystemSettings = () => {
 
     // Company Information
     company: {
-      name: 'AI Agent CRM',
+      name: 'Ai Agentic CRM',
       email: 'contact@aiagentcrm.com',
       phone: '+1 (555) 123-4567',
       address: '123 Business Street, Tech City, TC 12345',
@@ -124,8 +124,8 @@ const SystemSettings = () => {
       timezone: 'UTC',
       dateFormat: 'MM/DD/YYYY',
       timeFormat: '12h',
-      currency: 'USD',
-      currencySymbol: '$',
+      currency: 'INR',
+      currencySymbol: '₹',
     },
 
     // Security Settings
@@ -182,10 +182,10 @@ const SystemSettings = () => {
   ];
 
   const currencies = [
+    { code: 'INR', symbol: '₹', name: 'Indian Rupee' },
     { code: 'USD', symbol: '$', name: 'US Dollar' },
     { code: 'EUR', symbol: '€', name: 'Euro' },
     { code: 'GBP', symbol: '£', name: 'British Pound' },
-    { code: 'INR', symbol: '₹', name: 'Indian Rupee' },
     { code: 'CAD', symbol: 'C$', name: 'Canadian Dollar' },
   ];
 
