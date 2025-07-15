@@ -271,7 +271,63 @@ const UserSchema = new mongoose.Schema({
     utmMedium: String,
     utmCampaign: String,
     customFields: mongoose.Schema.Types.Mixed
-  }
+  },
+  
+  // Dynamic Configuration Data
+  goals: [{
+    id: String,
+    title: String,
+    target: Number,
+    current: { type: Number, default: 0 },
+    deadline: String,
+    type: {
+      type: String,
+      enum: ['leads', 'revenue', 'satisfaction', 'conversion', 'calls', 'meetings', 'custom'],
+      default: 'leads'
+    },
+    status: {
+      type: String,
+      enum: ['active', 'completed', 'paused', 'cancelled'],
+      default: 'active'
+    },
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now }
+  }],
+  
+  socialLinks: [{
+    platform: {
+      type: String,
+      enum: ['facebook', 'twitter', 'linkedin', 'instagram', 'youtube', 'github', 'website', 'custom'],
+      required: true
+    },
+    url: String,
+    icon: String,
+    color: String,
+    isActive: { type: Boolean, default: true },
+    createdAt: { type: Date, default: Date.now }
+  }],
+  
+  teamMembers: [{
+    id: String,
+    name: String,
+    email: String,
+    role: {
+      type: String,
+      enum: ['Admin', 'Manager', 'Member', 'Viewer'],
+      default: 'Member'
+    },
+    status: {
+      type: String,
+      enum: ['active', 'inactive', 'pending'],
+      default: 'active'
+    },
+    avatar: String,
+    permissions: [String],
+    joinedAt: { type: Date, default: Date.now },
+    lastActive: Date,
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now }
+  }]
 }, {
   timestamps: true,
   toJSON: { virtuals: true },

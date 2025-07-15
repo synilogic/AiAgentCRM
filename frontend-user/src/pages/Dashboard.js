@@ -175,11 +175,7 @@ const Dashboard = () => {
   const [goalDialogOpen, setGoalDialogOpen] = useState(false);
   const [quickActionDialogOpen, setQuickActionDialogOpen] = useState(false);
   const [newGoal, setNewGoal] = useState({ title: '', target: '', deadline: '', type: 'leads' });
-  const [goals, setGoals] = useState([
-    { id: 1, title: 'Monthly Leads Target', target: 100, current: 67, deadline: '2025-01-31', type: 'leads', status: 'active' },
-    { id: 2, title: 'Revenue Goal', target: 50000, current: 32000, deadline: '2025-01-31', type: 'revenue', status: 'active' },
-    { id: 3, title: 'Customer Satisfaction', target: 95, current: 88, deadline: '2025-01-31', type: 'satisfaction', status: 'active' }
-  ]);
+  const [goals, setGoals] = useState([]);
 
   // API Queries
   const {
@@ -243,6 +239,22 @@ const Dashboard = () => {
     }
   );
 
+  const {
+    data: goalsData,
+    isLoading: goalsLoading
+  } = useQuery(
+    ['user-goals'],
+    () => apiService.getGoals(),
+    {
+      refetchInterval: realTimeEnabled ? 60000 : false, // Refresh every minute
+      onSuccess: (data) => {
+        if (data.success) {
+          setGoals(data.goals);
+        }
+      }
+    }
+  );
+
   // Process data to ensure arrays
   const recentLeads = ensureArray(recentLeadsResponse);
   const tasks = ensureArray(tasksResponse);
@@ -294,6 +306,65 @@ const Dashboard = () => {
   const handleRefresh = () => {
     queryClient.invalidateQueries();
     setLastUpdate(new Date());
+  };
+
+  // Goal handling functions
+  const handleCreateGoal = async () => {
+    try {
+      if (!newGoal.title || !newGoal.target || !newGoal.deadline) {
+        return;
+      }
+
+      const response = await apiService.createGoal(newGoal);
+      
+      if (response.success) {
+        setGoalDialogOpen(false);
+        setNewGoal({ title: '', target: '', deadline: '', type: 'leads' });
+        queryClient.invalidateQueries(['user-goals']);
+      }
+    } catch (error) {
+      console.error('Failed to create goal:', error);
+    }
+  };
+
+  const handleUpdateGoal = async (goalId, updates) => {
+    try {
+      const updatedGoals = goals.map(goal => 
+        goal.id === goalId ? { ...goal, ...updates } : goal
+      );
+      
+      const response = await apiService.updateGoals(updatedGoals);
+      
+      if (response.success) {
+        setGoals(updatedGoals);
+      }
+    } catch (error) {
+      console.error('Failed to update goal:', error);
+    }
+  };
+
+  const handleDeleteGoal = async (goalId) => {
+    try {
+      const updatedGoals = goals.filter(goal => goal.id !== goalId);
+      
+      const response = await apiService.updateGoals(updatedGoals);
+      
+      if (response.success) {
+        setGoals(updatedGoals);
+      }
+    } catch (error) {
+      console.error('Failed to delete goal:', error);
+    }
+  };
+
+  const getGoalProgress = (goal) => {
+    return Math.min((goal.current / goal.target) * 100, 100);
+  };
+
+  const getGoalColor = (progress) => {
+    if (progress >= 90) return 'success';
+    if (progress >= 70) return 'warning';
+    return 'error';
   };
 
   const getTrendIcon = (trend) => {
@@ -685,6 +756,124 @@ const Dashboard = () => {
           </StyledCard>
         </Grid>
       </Grid>
+
+      {/* Goals Section */}
+      {goals.length > 0 && (
+        <Box mt={4}>
+          <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
+            <Typography variant="h6">Your Goals</Typography>
+            <Button
+              variant="contained"
+              startIcon={<AddIcon />}
+              onClick={() => setGoalDialogOpen(true)}
+              size="small"
+            >
+              Add Goal
+            </Button>
+          </Box>
+          <Grid container spacing={3}>
+            {goals.map((goal) => (
+              <Grid item xs={12} sm={6} md={4} key={goal.id}>
+                <StyledCard>
+                  <CardContent>
+                    <Box display="flex" justifyContent="space-between" alignItems="flex-start" mb={2}>
+                      <Box>
+                        <Typography variant="h6" fontWeight="bold">
+                          {goal.title}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          Due: {format(new Date(goal.deadline), 'MMM dd, yyyy')}
+                        </Typography>
+                      </Box>
+                      <Chip
+                        label={`${Math.round(getGoalProgress(goal))}%`}
+                        color={getGoalColor(getGoalProgress(goal))}
+                        variant="filled"
+                        size="small"
+                      />
+                    </Box>
+
+                    <Box mb={2}>
+                      <LinearProgress
+                        variant="determinate"
+                        value={getGoalProgress(goal)}
+                        sx={{ height: 8, borderRadius: 4 }}
+                        color={getGoalColor(getGoalProgress(goal))}
+                      />
+                    </Box>
+
+                    <Box display="flex" justifyContent="space-between" alignItems="center">
+                      <Typography variant="body2">
+                        {goal.current} / {goal.target}
+                        {goal.type === 'revenue' ? ' INR' : goal.type === 'satisfaction' ? '%' : ' leads'}
+                      </Typography>
+                      <Box display="flex" gap={1}>
+                        <IconButton size="small" onClick={() => handleDeleteGoal(goal.id)}>
+                          <DeleteIcon />
+                        </IconButton>
+                      </Box>
+                    </Box>
+                  </CardContent>
+                </StyledCard>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      )}
+
+      {/* Goal Dialog */}
+      <Dialog open={goalDialogOpen} onClose={() => setGoalDialogOpen(false)} maxWidth="sm" fullWidth>
+        <DialogTitle>Add New Goal</DialogTitle>
+        <DialogContent>
+          <Stack spacing={3} sx={{ mt: 1 }}>
+            <TextField
+              label="Goal Title"
+              fullWidth
+              value={newGoal.title}
+              onChange={(e) => setNewGoal({ ...newGoal, title: e.target.value })}
+            />
+            <TextField
+              label="Target"
+              type="number"
+              fullWidth
+              value={newGoal.target}
+              onChange={(e) => setNewGoal({ ...newGoal, target: e.target.value })}
+            />
+            <TextField
+              label="Deadline"
+              type="date"
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+              value={newGoal.deadline}
+              onChange={(e) => setNewGoal({ ...newGoal, deadline: e.target.value })}
+            />
+            <FormControl fullWidth>
+              <InputLabel>Goal Type</InputLabel>
+              <Select
+                value={newGoal.type}
+                onChange={(e) => setNewGoal({ ...newGoal, type: e.target.value })}
+              >
+                <MenuItem value="leads">Leads</MenuItem>
+                <MenuItem value="revenue">Revenue</MenuItem>
+                <MenuItem value="satisfaction">Satisfaction</MenuItem>
+                <MenuItem value="conversion">Conversion</MenuItem>
+                <MenuItem value="calls">Calls</MenuItem>
+                <MenuItem value="meetings">Meetings</MenuItem>
+              </Select>
+            </FormControl>
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setGoalDialogOpen(false)}>Cancel</Button>
+          <Button
+            variant="contained"
+            onClick={handleCreateGoal}
+            disabled={!newGoal.title || !newGoal.target || !newGoal.deadline}
+          >
+            Create Goal
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

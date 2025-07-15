@@ -32,7 +32,8 @@ import {
   Slide,
   Zoom,
   Alert,
-  Snackbar
+  Snackbar,
+  Skeleton
 } from '@mui/material';
 import {
   Menu as MenuIcon,
@@ -75,6 +76,7 @@ import { useSwipeable } from 'react-swipeable';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 import NotificationCenter from './NotificationCenter';
+import apiService from '../services/api';
 
 // Styled components
 const MobileAppBar = styled(AppBar)(({ theme }) => ({
@@ -174,56 +176,65 @@ const MobileLayout = ({ children, title, onRefresh, showBottomNav = true, showFa
   const [expandedMenu, setExpandedMenu] = useState({});
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'info' });
 
-  // Navigation items
-  const navigationItems = [
-    { 
-      label: 'Dashboard', 
-      icon: <DashboardIcon />, 
-      path: '/dashboard',
-      children: [
-        { label: 'Overview', path: '/dashboard' },
-        { label: 'Analytics', path: '/analytics' },
-        { label: 'Reports', path: '/reports' }
-      ]
-    },
-    { 
-      label: 'Leads', 
-      icon: <PeopleIcon />, 
-      path: '/leads',
-      children: [
-        { label: 'All Leads', path: '/leads' },
-        { label: 'Add Lead', path: '/leads/add' },
-        { label: 'Import', path: '/leads/import' }
-      ]
-    },
-    { 
-      label: 'Messages', 
-      icon: <ChatIcon />, 
-      path: '/chat',
-      badge: 3
-    },
-    { 
-      label: 'Tasks', 
-      icon: <TaskIcon />, 
-      path: '/tasks',
-      badge: 5
-    },
-    { 
-      label: 'WhatsApp', 
-      icon: <WhatsAppIcon />, 
-      path: '/whatsapp'
-    },
-    { 
-      label: 'Analytics', 
-      icon: <AnalyticsIcon />, 
-      path: '/analytics'
-    },
-    { 
-      label: 'Settings', 
-      icon: <SettingsIcon />, 
-      path: '/settings'
+  // Dynamic navigation items (will be fetched from API)
+  const [navigationItems, setNavigationItems] = useState([]);
+  const [navigationLoading, setNavigationLoading] = useState(true);
+
+  // Icon mapping for mobile navigation
+  const getMobileIcon = (iconName) => {
+    const iconMap = {
+      'Dashboard': <DashboardIcon />,
+      'People': <PeopleIcon />,
+      'WhatsApp': <WhatsAppIcon />,
+      'Schedule': <ScheduleIcon />,
+      'Psychology': <PsychologyIcon />,
+      'Link': <LinkIcon />,
+      'Analytics': <AnalyticsIcon />,
+      'Payment': <PaymentIcon />,
+      'Star': <StarIcon />,
+      'Help': <HelpIcon />,
+      'Settings': <SettingsIcon />,
+    };
+    return iconMap[iconName] || <DashboardIcon />;
+  };
+
+  // Fetch navigation items from API
+  useEffect(() => {
+    const fetchNavigation = async () => {
+      try {
+        const response = await apiService.getNavigation();
+        if (response.success) {
+          const mobileNavItems = response.navigation
+            .filter(item => item.enabled)
+            .map(item => ({
+              label: item.text,
+              icon: getMobileIcon(item.icon),
+              path: item.path,
+              enabled: item.enabled
+            }));
+          setNavigationItems(mobileNavItems);
+        }
+      } catch (error) {
+        console.error('Failed to fetch navigation:', error);
+        // Fallback navigation for mobile
+        setNavigationItems([
+          { label: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
+          { label: 'Leads', icon: <PeopleIcon />, path: '/leads' },
+          { label: 'Messages', icon: <ChatIcon />, path: '/chat' },
+          { label: 'Tasks', icon: <TaskIcon />, path: '/tasks' },
+          { label: 'WhatsApp', icon: <WhatsAppIcon />, path: '/whatsapp' },
+          { label: 'Analytics', icon: <AnalyticsIcon />, path: '/analytics' },
+          { label: 'Settings', icon: <SettingsIcon />, path: '/settings' }
+        ]);
+      } finally {
+        setNavigationLoading(false);
+      }
+    };
+
+    if (user) {
+      fetchNavigation();
     }
-  ];
+  }, [user]);
 
   const bottomNavItems = [
     { label: 'Home', icon: <HomeIcon />, path: '/dashboard' },

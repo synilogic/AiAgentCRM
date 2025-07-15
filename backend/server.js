@@ -200,6 +200,7 @@ app.use('/api/ai', aiRoutes);
 app.use('/api/integrations', integrationsRoutes);
 app.use('/api/followups', followupsRoutes);
 app.use('/api/knowledge', knowledgeRoutes);
+app.use('/api/config', require('./routes/config'));
 
 // Socket.IO connection handling
 io.on('connection', (socket) => {

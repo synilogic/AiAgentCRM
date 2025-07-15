@@ -166,20 +166,11 @@ const EnhancedSettings = () => {
     }
   });
 
-  const [socialLinks, setSocialLinks] = useState([
-    { platform: 'facebook', url: '', icon: <FacebookIcon />, color: '#1877f2' },
-    { platform: 'twitter', url: '', icon: <TwitterIcon />, color: '#1da1f2' },
-    { platform: 'linkedin', url: '', icon: <LinkedInIcon />, color: '#0077b5' },
-    { platform: 'instagram', url: '', icon: <InstagramIcon />, color: '#e4405f' },
-    { platform: 'youtube', url: '', icon: <YouTubeIcon />, color: '#ff0000' },
-    { platform: 'github', url: '', icon: <GitHubIcon />, color: '#333' },
-    { platform: 'website', url: '', icon: <WebsiteIcon />, color: '#6366f1' }
-  ]);
+  const [socialLinks, setSocialLinks] = useState([]);
 
-  const [teamMembers, setTeamMembers] = useState([
-    { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Admin', status: 'active', avatar: '' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'Member', status: 'active', avatar: '' }
-  ]);
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [socialLinksLoading, setSocialLinksLoading] = useState(true);
+  const [teamMembersLoading, setTeamMembersLoading] = useState(true);
 
   const [passwordData, setPasswordData] = useState({
     currentPassword: '',
@@ -191,6 +182,56 @@ const EnhancedSettings = () => {
   const [photoDialog, setPhotoDialog] = useState(false);
   const [teamDialog, setTeamDialog] = useState(false);
   const [newTeamMember, setNewTeamMember] = useState({ name: '', email: '', role: 'Member' });
+
+  // Helper function to get social media icons
+  const getSocialIcon = (platform) => {
+    const iconMap = {
+      'facebook': <FacebookIcon />,
+      'twitter': <TwitterIcon />,
+      'linkedin': <LinkedInIcon />,
+      'instagram': <InstagramIcon />,
+      'youtube': <YouTubeIcon />,
+      'github': <GitHubIcon />,
+      'website': <WebsiteIcon />,
+    };
+    return iconMap[platform] || <WebsiteIcon />;
+  };
+
+  // Fetch social links from API
+  useEffect(() => {
+    const fetchSocialLinks = async () => {
+      try {
+        const response = await apiService.getSocialLinks();
+        if (response.success) {
+          setSocialLinks(response.socialLinks);
+        }
+      } catch (error) {
+        console.error('Failed to fetch social links:', error);
+      } finally {
+        setSocialLinksLoading(false);
+      }
+    };
+
+    fetchSocialLinks();
+  }, []);
+
+  // Fetch team members from API
+  useEffect(() => {
+    const fetchTeamMembers = async () => {
+      try {
+        const response = await apiService.getTeamMembers();
+        if (response.success) {
+          setTeamMembers(response.teamMembers);
+        }
+      } catch (error) {
+        console.error('Failed to fetch team members:', error);
+      } finally {
+        setTeamMembersLoading(false);
+      }
+    };
+
+    fetchTeamMembers();
+  }, []);
 
   // Mutations
   const updateProfileMutation = useMutation(
@@ -280,29 +321,51 @@ const EnhancedSettings = () => {
     }
   };
 
-  const handleSocialLinkUpdate = (platform, url) => {
-    setSocialLinks(socialLinks.map(link => 
-      link.platform === platform ? { ...link, url } : link
-    ));
-  };
-
-  const addTeamMember = () => {
-    if (newTeamMember.name && newTeamMember.email) {
-      setTeamMembers([...teamMembers, {
-        ...newTeamMember,
-        id: Date.now(),
-        status: 'pending',
-        avatar: ''
-      }]);
-      setNewTeamMember({ name: '', email: '', role: 'Member' });
-      setTeamDialog(false);
-      setSnackbar({ open: true, message: 'Team member invited!', severity: 'success' });
+  const handleSocialLinkUpdate = async (platform, url) => {
+    try {
+      const updatedLinks = socialLinks.map(link => 
+        link.platform === platform ? { ...link, url } : link
+      );
+      
+      const response = await apiService.updateSocialLinks(updatedLinks);
+      if (response.success) {
+        setSocialLinks(updatedLinks);
+        setSnackbar({ open: true, message: 'Social link updated successfully!', severity: 'success' });
+      }
+    } catch (error) {
+      console.error('Failed to update social link:', error);
+      setSnackbar({ open: true, message: 'Failed to update social link', severity: 'error' });
     }
   };
 
-  const removeTeamMember = (id) => {
-    setTeamMembers(teamMembers.filter(member => member.id !== id));
-    setSnackbar({ open: true, message: 'Team member removed', severity: 'info' });
+  const addTeamMember = async () => {
+    if (newTeamMember.name && newTeamMember.email) {
+      try {
+        const response = await apiService.addTeamMember(newTeamMember);
+        if (response.success) {
+          setTeamMembers([...teamMembers, response.teamMember]);
+          setNewTeamMember({ name: '', email: '', role: 'Member' });
+          setTeamDialog(false);
+          setSnackbar({ open: true, message: 'Team member invited!', severity: 'success' });
+        }
+      } catch (error) {
+        console.error('Failed to add team member:', error);
+        setSnackbar({ open: true, message: 'Failed to invite team member', severity: 'error' });
+      }
+    }
+  };
+
+  const removeTeamMember = async (id) => {
+    try {
+      const response = await apiService.removeTeamMember(id);
+      if (response.success) {
+        setTeamMembers(teamMembers.filter(member => member.id !== id));
+        setSnackbar({ open: true, message: 'Team member removed', severity: 'info' });
+      }
+    } catch (error) {
+      console.error('Failed to remove team member:', error);
+      setSnackbar({ open: true, message: 'Failed to remove team member', severity: 'error' });
+    }
   };
 
   return (
@@ -806,47 +869,95 @@ const EnhancedSettings = () => {
           </Stack>
 
           <Grid container spacing={3}>
-            {teamMembers.map((member) => (
-              <Grid item xs={12} sm={6} md={4} key={member.id}>
-                <FeatureCard>
-                  <CardContent>
-                    <Stack direction="row" spacing={2} alignItems="center" mb={2}>
-                      <Avatar src={member.avatar}>
-                        {member.name.charAt(0).toUpperCase()}
-                      </Avatar>
-                      <Box sx={{ flexGrow: 1 }}>
-                        <Typography variant="subtitle1" fontWeight="bold">
-                          {member.name}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          {member.email}
-                        </Typography>
-                      </Box>
-                    </Stack>
-                    <Stack direction="row" justifyContent="space-between" alignItems="center">
-                      <Chip
-                        label={member.role}
-                        color={member.role === 'Admin' ? 'primary' : 'default'}
-                        size="small"
-                      />
-                      <Chip
-                        label={member.status}
-                        color={member.status === 'active' ? 'success' : 'warning'}
-                        size="small"
-                      />
-                    </Stack>
-                    <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
-                      <IconButton size="small">
-                        <EditIcon />
-                      </IconButton>
-                      <IconButton size="small" color="error" onClick={() => removeTeamMember(member.id)}>
-                        <DeleteIcon />
-                      </IconButton>
-                    </Stack>
+            {teamMembersLoading ? (
+              // Loading skeletons
+              [1, 2, 3].map((i) => (
+                <Grid item xs={12} sm={6} md={4} key={i}>
+                  <Card>
+                    <CardContent>
+                      <Stack direction="row" spacing={2} alignItems="center" mb={2}>
+                        <Skeleton variant="circular" width={40} height={40} />
+                        <Box sx={{ flexGrow: 1 }}>
+                          <Skeleton variant="text" width={120} height={20} />
+                          <Skeleton variant="text" width={180} height={16} />
+                        </Box>
+                      </Stack>
+                      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
+                        <Skeleton variant="rectangular" width={60} height={24} />
+                        <Skeleton variant="rectangular" width={70} height={24} />
+                      </Stack>
+                      <Stack direction="row" spacing={1}>
+                        <Skeleton variant="circular" width={32} height={32} />
+                        <Skeleton variant="circular" width={32} height={32} />
+                      </Stack>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))
+            ) : teamMembers.length > 0 ? (
+              teamMembers.map((member) => (
+                <Grid item xs={12} sm={6} md={4} key={member.id}>
+                  <FeatureCard>
+                    <CardContent>
+                      <Stack direction="row" spacing={2} alignItems="center" mb={2}>
+                        <Avatar src={member.avatar}>
+                          {member.name?.charAt(0)?.toUpperCase() || 'U'}
+                        </Avatar>
+                        <Box sx={{ flexGrow: 1 }}>
+                          <Typography variant="subtitle1" fontWeight="bold">
+                            {member.name}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            {member.email}
+                          </Typography>
+                        </Box>
+                      </Stack>
+                      <Stack direction="row" justifyContent="space-between" alignItems="center">
+                        <Chip
+                          label={member.role}
+                          color={member.role === 'Admin' ? 'primary' : 'default'}
+                          size="small"
+                        />
+                        <Chip
+                          label={member.status}
+                          color={member.status === 'active' ? 'success' : 'warning'}
+                          size="small"
+                        />
+                      </Stack>
+                      <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
+                        <IconButton size="small">
+                          <EditIcon />
+                        </IconButton>
+                        <IconButton size="small" color="error" onClick={() => removeTeamMember(member.id)}>
+                          <DeleteIcon />
+                        </IconButton>
+                      </Stack>
+                    </CardContent>
+                  </FeatureCard>
+                </Grid>
+              ))
+            ) : (
+              <Grid item xs={12}>
+                <Card>
+                  <CardContent sx={{ textAlign: 'center', py: 4 }}>
+                    <TeamIcon sx={{ fontSize: 48, color: 'text.secondary', mb: 2 }} />
+                    <Typography variant="h6" color="text.secondary" gutterBottom>
+                      No team members yet
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" mb={3}>
+                      Invite team members to collaborate on your CRM
+                    </Typography>
+                    <Button
+                      variant="contained"
+                      startIcon={<AddIcon />}
+                      onClick={() => setTeamDialog(true)}
+                    >
+                      Invite First Member
+                    </Button>
                   </CardContent>
-                </FeatureCard>
+                </Card>
               </Grid>
-            ))}
+            )}
           </Grid>
         </Box>
       </TabPanel>
@@ -857,35 +968,47 @@ const EnhancedSettings = () => {
           Social Media Links
         </Typography>
         <Grid container spacing={3}>
-          {socialLinks.map((link) => (
-            <Grid item xs={12} sm={6} md={4} key={link.platform}>
-              <SocialLinkCard>
-                <CardContent>
-                  <Stack direction="row" spacing={2} alignItems="center" mb={2}>
-                    <Avatar sx={{ bgcolor: link.color }}>
-                      {link.icon}
-                    </Avatar>
-                    <Typography variant="h6" sx={{ textTransform: 'capitalize' }}>
-                      {link.platform}
-                    </Typography>
-                  </Stack>
-                  <TextField
-                    fullWidth
-                    label={`${link.platform} URL`}
-                    value={link.url}
-                    onChange={(e) => handleSocialLinkUpdate(link.platform, e.target.value)}
-                    placeholder={`Enter your ${link.platform} URL`}
-                  />
-                </CardContent>
-              </SocialLinkCard>
-            </Grid>
-          ))}
+          {socialLinksLoading ? (
+            // Loading skeletons
+            [1, 2, 3, 4, 5, 6].map((i) => (
+              <Grid item xs={12} sm={6} md={4} key={i}>
+                <Card>
+                  <CardContent>
+                    <Stack direction="row" spacing={2} alignItems="center" mb={2}>
+                      <Skeleton variant="circular" width={40} height={40} />
+                      <Skeleton variant="text" width={100} height={24} />
+                    </Stack>
+                    <Skeleton variant="rectangular" height={56} />
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))
+          ) : (
+            socialLinks.map((link) => (
+              <Grid item xs={12} sm={6} md={4} key={link.platform}>
+                <SocialLinkCard>
+                  <CardContent>
+                    <Stack direction="row" spacing={2} alignItems="center" mb={2}>
+                      <Avatar sx={{ bgcolor: link.color }}>
+                        {getSocialIcon(link.platform)}
+                      </Avatar>
+                      <Typography variant="h6" sx={{ textTransform: 'capitalize' }}>
+                        {link.platform}
+                      </Typography>
+                    </Stack>
+                    <TextField
+                      fullWidth
+                      label={`${link.platform} URL`}
+                      value={link.url || ''}
+                      onChange={(e) => handleSocialLinkUpdate(link.platform, e.target.value)}
+                      placeholder={`Enter your ${link.platform} URL`}
+                    />
+                  </CardContent>
+                </SocialLinkCard>
+              </Grid>
+            ))
+          )}
         </Grid>
-        <Box sx={{ mt: 3, textAlign: 'right' }}>
-          <Button variant="contained" startIcon={<SaveIcon />}>
-            Save Social Links
-          </Button>
-        </Box>
       </TabPanel>
 
       {/* Photo Upload Dialog */}

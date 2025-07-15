@@ -777,6 +777,69 @@ class UserApiService {
     });
   }
 
+  // ==================== CONFIGURATION ====================
+
+  async getFeatures() {
+    return await this.request('/config/features');
+  }
+
+  async getNavigation() {
+    return await this.request('/config/navigation');
+  }
+
+  async getGoals() {
+    return await this.request('/config/goals');
+  }
+
+  async updateGoals(goals) {
+    return await this.request('/config/goals', {
+      method: 'PUT',
+      body: JSON.stringify({ goals }),
+    });
+  }
+
+  async createGoal(goalData) {
+    return await this.request('/config/goals', {
+      method: 'POST',
+      body: JSON.stringify(goalData),
+    });
+  }
+
+  async getSocialLinks() {
+    return await this.request('/config/social-links');
+  }
+
+  async updateSocialLinks(socialLinks) {
+    return await this.request('/config/social-links', {
+      method: 'PUT',
+      body: JSON.stringify({ socialLinks }),
+    });
+  }
+
+  async getTeamMembers() {
+    return await this.request('/config/team-members');
+  }
+
+  async addTeamMember(memberData) {
+    return await this.request('/config/team-members', {
+      method: 'POST',
+      body: JSON.stringify(memberData),
+    });
+  }
+
+  async updateTeamMember(id, memberData) {
+    return await this.request(`/config/team-members/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(memberData),
+    });
+  }
+
+  async removeTeamMember(id) {
+    return await this.request(`/config/team-members/${id}`, {
+      method: 'DELETE',
+    });
+  }
+
   // ==================== UTILITIES ====================
 
   async uploadFile(file, type = 'document') {

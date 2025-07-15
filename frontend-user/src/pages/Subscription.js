@@ -386,7 +386,7 @@ const Subscription = () => {
                               {item.label}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                              {current.toLocaleString()} / {limit === -1 ? '∞' : limit.toLocaleString()}
+                              {(current || 0).toLocaleString()} / {limit === -1 ? '∞' : limit !== undefined ? limit.toLocaleString() : '∞'}
                             </Typography>
                           </Box>
                           <LinearProgress
@@ -511,17 +511,29 @@ const Subscription = () => {
                     </Box>
 
                     <List dense>
-                      {plan.features?.map((feature, index) => (
-                        <ListItem key={index} sx={{ px: 0 }}>
-                          <ListItemIcon sx={{ minWidth: 36 }}>
-                            <CheckIcon color="success" fontSize="small" />
-                          </ListItemIcon>
-                          <ListItemText 
-                            primary={feature} 
-                            primaryTypographyProps={{ variant: 'body2' }}
-                          />
-                        </ListItem>
-                      ))}
+                      {plan.features && Object.entries(plan.features)
+                        .filter(([key, value]) => value === true)
+                        .map(([key, value], index) => {
+                          // Convert camelCase to readable text
+                          const featureName = key
+                            .replace(/([A-Z])/g, ' $1')
+                            .replace(/^./, str => str.toUpperCase())
+                            .replace(/Ai /g, 'AI ')
+                            .replace(/Api /g, 'API ')
+                            .replace(/Sso/g, 'SSO');
+                          
+                          return (
+                            <ListItem key={index} sx={{ px: 0 }}>
+                              <ListItemIcon sx={{ minWidth: 36 }}>
+                                <CheckIcon color="success" fontSize="small" />
+                              </ListItemIcon>
+                              <ListItemText 
+                                primary={featureName} 
+                                primaryTypographyProps={{ variant: 'body2' }}
+                              />
+                            </ListItem>
+                          );
+                        })}
                     </List>
 
                     <Box mt={3}>

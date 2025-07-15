@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Drawer,
@@ -19,6 +19,7 @@ import {
   Chip,
   useTheme,
   useMediaQuery,
+  Skeleton,
 } from '@mui/material';
 import {
   Menu as MenuIcon,
@@ -43,32 +44,88 @@ import {
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import apiService from '../services/api';
 
 const drawerWidth = 280;
-
-const menuItems = [
-  { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
-  { text: 'Leads', icon: <PeopleIcon />, path: '/leads' },
-  { text: 'WhatsApp', icon: <WhatsAppIcon />, path: '/whatsapp' },
-  { text: 'WhatsApp QR', icon: <QrCodeIcon />, path: '/whatsapp-qr' },
-  { text: 'Auto Follow-up', icon: <ScheduleIcon />, path: '/auto-followup' },
-  { text: 'AI Knowledge', icon: <PsychologyIcon />, path: '/ai-knowledge' },
-  { text: 'Integrations', icon: <LinkIcon />, path: '/integrations' },
-  { text: 'Analytics', icon: <AnalyticsIcon />, path: '/analytics' },
-  { text: 'Subscription', icon: <PaymentIcon />, path: '/subscription' },
-  { text: 'Pricing', icon: <StarIcon />, path: '/pricing' },
-  { text: 'Help & Support', icon: <HelpIcon />, path: '/help-support' },
-  { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
-];
 
 const Layout = ({ children }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [menuItems, setMenuItems] = useState([]);
+  const [navigationLoading, setNavigationLoading] = useState(true);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  // Icon mapping for navigation items
+  const getMenuIcon = (iconName) => {
+    const iconMap = {
+      'Dashboard': <DashboardIcon />,
+      'People': <PeopleIcon />,
+      'WhatsApp': <WhatsAppIcon />,
+      'QrCode': <QrCodeIcon />,
+      'Schedule': <ScheduleIcon />,
+      'Psychology': <PsychologyIcon />,
+      'Link': <LinkIcon />,
+      'Analytics': <AnalyticsIcon />,
+      'Payment': <PaymentIcon />,
+      'Star': <StarIcon />,
+      'Help': <HelpIcon />,
+      'Settings': <SettingsIcon />,
+    };
+    return iconMap[iconName] || <DashboardIcon />;
+  };
+
+  // Fetch navigation items from API
+  useEffect(() => {
+    const fetchNavigation = async () => {
+      try {
+        const response = await apiService.getNavigation();
+        if (response.success) {
+          setMenuItems(response.navigation.filter(item => item.enabled));
+        } else {
+          // Fallback to default navigation if API fails
+          setMenuItems([
+            { text: 'Dashboard', icon: 'Dashboard', path: '/dashboard', enabled: true },
+            { text: 'Leads', icon: 'People', path: '/leads', enabled: true },
+            { text: 'WhatsApp', icon: 'WhatsApp', path: '/whatsapp', enabled: true },
+            { text: 'Auto Follow-up', icon: 'Schedule', path: '/auto-followup', enabled: true },
+            { text: 'AI Knowledge', icon: 'Psychology', path: '/ai-knowledge', enabled: true },
+            { text: 'Integrations', icon: 'Link', path: '/integrations', enabled: true },
+            { text: 'Analytics', icon: 'Analytics', path: '/analytics', enabled: true },
+            { text: 'Subscription', icon: 'Payment', path: '/subscription', enabled: true },
+            { text: 'Pricing', icon: 'Star', path: '/pricing', enabled: true },
+            { text: 'Help & Support', icon: 'Help', path: '/help-support', enabled: true },
+            { text: 'Settings', icon: 'Settings', path: '/settings', enabled: true },
+          ]);
+        }
+      } catch (error) {
+        console.error('Failed to fetch navigation:', error);
+        // Fallback to default navigation
+        setMenuItems([
+          { text: 'Dashboard', icon: 'Dashboard', path: '/dashboard', enabled: true },
+          { text: 'Leads', icon: 'People', path: '/leads', enabled: true },
+          { text: 'WhatsApp', icon: 'WhatsApp', path: '/whatsapp', enabled: true },
+          { text: 'Auto Follow-up', icon: 'Schedule', path: '/auto-followup', enabled: true },
+          { text: 'AI Knowledge', icon: 'Psychology', path: '/ai-knowledge', enabled: true },
+          { text: 'Integrations', icon: 'Link', path: '/integrations', enabled: true },
+          { text: 'Analytics', icon: 'Analytics', path: '/analytics', enabled: true },
+          { text: 'Subscription', icon: 'Payment', path: '/subscription', enabled: true },
+          { text: 'Pricing', icon: 'Star', path: '/pricing', enabled: true },
+          { text: 'Help & Support', icon: 'Help', path: '/help-support', enabled: true },
+          { text: 'Settings', icon: 'Settings', path: '/settings', enabled: true },
+        ]);
+      } finally {
+        setNavigationLoading(false);
+      }
+    };
+
+    if (user) {
+      fetchNavigation();
+    }
+  }, [user]);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -127,50 +184,64 @@ const Layout = ({ children }) => {
       {/* Navigation Menu */}
       <Box sx={{ flex: 1, overflow: 'auto' }}>
         <List sx={{ pt: 2 }}>
-          {menuItems.map((item) => (
-            <ListItem key={item.text} disablePadding>
-              <ListItemButton
-                onClick={() => {
-                  navigate(item.path);
-                  if (isMobile) setMobileOpen(false);
-                }}
-                selected={location.pathname === item.path}
-                sx={{
-                  mx: 1,
-                  borderRadius: 2,
-                  mb: 0.5,
-                  '&.Mui-selected': {
-                    bgcolor: 'primary.main',
-                    color: 'white',
-                    '&:hover': {
-                      bgcolor: 'primary.dark',
-                    },
-                    '& .MuiListItemIcon-root': {
-                      color: 'white',
-                    },
-                  },
-                  '&:hover': {
-                    bgcolor: 'action.hover',
-                  },
-                }}
-              >
-                <ListItemIcon
+          {navigationLoading ? (
+            // Loading skeletons
+            [1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+              <ListItem key={i} disablePadding>
+                <Box sx={{ width: '100%', px: 1, mb: 0.5 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, p: 1 }}>
+                    <Skeleton variant="circular" width={24} height={24} />
+                    <Skeleton variant="text" width={120} height={20} />
+                  </Box>
+                </Box>
+              </ListItem>
+            ))
+          ) : (
+            menuItems.map((item) => (
+              <ListItem key={item.text} disablePadding>
+                <ListItemButton
+                  onClick={() => {
+                    navigate(item.path);
+                    if (isMobile) setMobileOpen(false);
+                  }}
+                  selected={location.pathname === item.path}
                   sx={{
-                    minWidth: 40,
-                    color: location.pathname === item.path ? 'white' : 'text.secondary',
+                    mx: 1,
+                    borderRadius: 2,
+                    mb: 0.5,
+                    '&.Mui-selected': {
+                      bgcolor: 'primary.main',
+                      color: 'white',
+                      '&:hover': {
+                        bgcolor: 'primary.dark',
+                      },
+                      '& .MuiListItemIcon-root': {
+                        color: 'white',
+                      },
+                    },
+                    '&:hover': {
+                      bgcolor: 'action.hover',
+                    },
                   }}
                 >
-                  {item.icon}
-                </ListItemIcon>
-                <ListItemText
-                  primary={item.text}
-                  primaryTypographyProps={{
-                    fontWeight: location.pathname === item.path ? 600 : 500,
-                  }}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 40,
+                      color: location.pathname === item.path ? 'white' : 'text.secondary',
+                    }}
+                  >
+                    {getMenuIcon(item.icon)}
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={item.text}
+                    primaryTypographyProps={{
+                      fontWeight: location.pathname === item.path ? 600 : 500,
+                    }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))
+          )}
         </List>
       </Box>
 

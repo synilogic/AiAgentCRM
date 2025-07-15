@@ -721,6 +721,15 @@ router.post('/purchase-plan', async (req, res) => {
     const amount = billingCycle === 'yearly' ? plan.price.yearly : plan.price.monthly;
     const currency = plan.price.currency || 'INR';
 
+    // Check if Razorpay is configured
+    if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+      return res.status(503).json({
+        success: false,
+        error: 'Payment gateway not configured. Please contact administrator.',
+        details: 'Razorpay credentials are not configured'
+      });
+    }
+
     // Create Razorpay order
     const orderResult = await razorpayService.createOrder(
       amount,
@@ -731,7 +740,8 @@ router.post('/purchase-plan', async (req, res) => {
     if (!orderResult.success) {
       return res.status(500).json({
         success: false,
-        error: 'Failed to create payment order'
+        error: 'Failed to create payment order',
+        details: orderResult.error
       });
     }
 
